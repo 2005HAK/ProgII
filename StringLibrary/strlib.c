@@ -4,8 +4,8 @@
 
 int main()
 {
-    char string[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '\0'};
-    char string2[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '\0'};
+    char string[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '1', '\0'};
+    char string2[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '2', '\0'};
     char *ptr = &string;
     int num = str_length(ptr), k;
 
@@ -45,6 +45,15 @@ int main()
         printf("%c", string[k]);
     }
 
+    printf("\n");
+
+    str_copy(&string, &string2);
+
+    for (k = 0; k < str_length(string); k++)
+    {
+        printf("%c", string[k]);
+    }
+
     free(strDuplicate);
     return 0;
 }
@@ -68,7 +77,6 @@ int str_length(const char *str)
     }
 }
 
-// funcional
 char *str_duplicate(const char *str)
 {
     if (str != NULL)
@@ -76,7 +84,7 @@ char *str_duplicate(const char *str)
         int tam = str_length(str),
             j;
 
-        char *strDuplicate = (char *)malloc((2 * tam) * sizeof(char));
+        char *strDuplicate = (char *)malloc((2 * tam + 1) * sizeof(char));
 
         if (strDuplicate != NULL)
         {
@@ -105,7 +113,6 @@ char *str_duplicate(const char *str)
     }
 }
 
-// funcional
 int str_compare(const char *stra, const char *strb)
 {
     int tama = str_length(stra),
@@ -137,7 +144,6 @@ int str_compare(const char *stra, const char *strb)
     }
 }
 
-// funcional, mas testar retornos
 int str_reverse(char *str)
 {
     if (str != NULL)
@@ -162,7 +168,6 @@ int str_reverse(char *str)
     return 0;
 }
 
-// funcional,  mas testar retornos
 int str_upper(char *str)
 {
     if (str != NULL)
@@ -178,12 +183,12 @@ int str_upper(char *str)
                 contUpper++;
             }
         }
+        return contUpper;
     }
 
     return -1;
 }
 
-// funcional, mas testar retornos
 int str_lower(char *str)
 {
     if (str != NULL)
@@ -199,11 +204,13 @@ int str_lower(char *str)
                 contLower++;
             }
         }
+        return contLower;
     }
 
     return -1;
 }
 
+// testar retornos
 int str_copy(char *dst, const char *src)
 {
     int tamDst = str_length(dst),
@@ -240,14 +247,14 @@ int str_copy(char *dst, const char *src)
 
     return -1;
 }
-/*
+
 char *str_concatenate(const char *stra, const char *strb)
 {
     int tama = str_length(stra),
         tamb = str_length(strb),
         i;
 
-    char *strConcat = (char *)maloc((tama + tamb + 1) * sizeof(char));
+    char *strConcat = (char *)malloc((tama + tamb + 1) * sizeof(char));
 
     for (i = 0; i < str_length(strConcat); i++)
     {
@@ -258,10 +265,13 @@ char *str_concatenate(const char *stra, const char *strb)
         else if (i > tama && (i - tama) < tamb)
         {
             strConcat[i] = strb[i - tama];
+        } else {
+            strConcat[i] = '\0';
         }
     }
-    strConcat[]
+    return strConcat;
 }
+/*
 
 int str_find_first(const char *str, const char c)
 {
