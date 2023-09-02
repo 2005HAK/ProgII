@@ -3,62 +3,80 @@
 #include <stdlib.h>
 
 int main()
-{
+{/*
     char string[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '1', '\0'};
     char string2[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '2', '\0'};
-    char *ptr = &string;
-    int num = str_length(ptr), k;
+    const char *ptr1 = &string[0];
+    const char *ptr2 = &string2[0];
+
+    int num = str_length(&string), k;
 
     printf("%i\n", num);
 
-    char *strDuplicate = (char *)str_duplicate(&string);
+    num = str_length(&string2);
 
-    for (k = 0; k < str_length(strDuplicate); k++)
-    {
-        printf("%c", strDuplicate[k]);
-    }
+    printf("%i\n", num);
+    
+            char *strDuplicate = (char *)str_duplicate(&string);
 
-    printf("\n%i\n", str_compare(&string, &string2));
+            for (k = 0; k < str_length(strDuplicate); k++)
+            {
+                printf("%c", strDuplicate[k]);
+            }
 
-    str_reverse(&string);
+            printf("\n%i\n", str_compare(&string, &string2));
 
-    for (k = 0; k < str_length(string); k++)
-    {
-        printf("%c", string[k]);
-    }
+            str_reverse(&string);
 
-    printf("\n");
+            for (k = 0; k < str_length(string); k++)
+            {
+                printf("%c", string[k]);
+            }
 
-    str_upper(&string);
+            printf("\n");
 
-    for (k = 0; k < str_length(string); k++)
-    {
-        printf("%c", string[k]);
-    }
+            str_upper(&string);
 
-    printf("\n");
+            for (k = 0; k < str_length(string); k++)
+            {
+                printf("%c", string[k]);
+            }
 
-    str_lower(&string);
+            printf("\n");
 
-    for (k = 0; k < str_length(string); k++)
-    {
-        printf("%c", string[k]);
-    }
+            str_lower(&string);
 
-    printf("\n");
+            for (k = 0; k < str_length(string); k++)
+            {
+                printf("%c", string[k]);
+            }
 
-    str_copy(&string, &string2);
+            printf("\n");
 
-    for (k = 0; k < str_length(string); k++)
-    {
-        printf("%c", string[k]);
-    }
+            str_copy(&string, &string2);
 
-    free(strDuplicate);
+            for (k = 0; k < str_length(string); k++)
+            {
+                printf("%c", string[k]);
+            }
+
+            free(strDuplicate);
+
+        char *cat = str_concatenate(ptr1, ptr2);
+
+        num = str_length(cat);
+
+    printf("%i\n", str_find_last(ptr1, 'm'));
+
+        for (k = 0; k < str_length(cat); k++)
+        {
+            printf("%c", string[k]);
+        }
+    */
     return 0;
 }
 
-// funcional
+// FUNCIONA
 int str_length(const char *str)
 {
     if (str == NULL)
@@ -77,6 +95,7 @@ int str_length(const char *str)
     }
 }
 
+// FUNCIONA
 char *str_duplicate(const char *str)
 {
     if (str != NULL)
@@ -113,6 +132,7 @@ char *str_duplicate(const char *str)
     }
 }
 
+// FUNICONA. CONFERIR DENOVO
 int str_compare(const char *stra, const char *strb)
 {
     int tama = str_length(stra),
@@ -144,6 +164,7 @@ int str_compare(const char *stra, const char *strb)
     }
 }
 
+// FUNCIONA. TESTAR RETORNOS
 int str_reverse(char *str)
 {
     if (str != NULL)
@@ -168,6 +189,7 @@ int str_reverse(char *str)
     return 0;
 }
 
+// FUNCIONA. TESTAR RETORNOS
 int str_upper(char *str)
 {
     if (str != NULL)
@@ -189,6 +211,7 @@ int str_upper(char *str)
     return -1;
 }
 
+// FUNCIONA. TESTAR RETORNOS
 int str_lower(char *str)
 {
     if (str != NULL)
@@ -210,7 +233,7 @@ int str_lower(char *str)
     return -1;
 }
 
-// testar retornos
+// FUNCIONA. RETORNOS NÃO TESTADOS
 int str_copy(char *dst, const char *src)
 {
     int tamDst = str_length(dst),
@@ -218,7 +241,7 @@ int str_copy(char *dst, const char *src)
         i,
         ver = 0;
 
-    if (dst != NULL && src != NULL)
+    if (dst != NULL || src != NULL)
     {
         if (tamDst >= tamSrc)
         {
@@ -235,7 +258,7 @@ int str_copy(char *dst, const char *src)
                 }
                 else
                 {
-                    dst[i] = NULL;
+                    dst[i] = ' ';
                 }
             }
 
@@ -247,7 +270,7 @@ int str_copy(char *dst, const char *src)
 
     return -1;
 }
-
+/*não funciona
 char *str_concatenate(const char *stra, const char *strb)
 {
     int tama = str_length(stra),
@@ -256,31 +279,67 @@ char *str_concatenate(const char *stra, const char *strb)
 
     char *strConcat = (char *)malloc((tama + tamb + 1) * sizeof(char));
 
-    for (i = 0; i < str_length(strConcat); i++)
+    for (i = 0; i < (tama + tamb + 1); i++)
     {
         if (i < tama)
         {
             strConcat[i] = stra[i];
-        }
-        else if (i > tama && (i - tama) < tamb)
+        }else if (i >= tama && (i - tama) < tamb)
         {
-            strConcat[i] = strb[i - tama];
+            strConcat[i] = strb[(i - tama)];
         } else {
             strConcat[i] = '\0';
         }
     }
-    return strConcat;
-}
-/*
 
+    return strConcat;
+}*/
+
+// FUNCIONA
 int str_find_first(const char *str, const char c)
 {
+    if (str != NULL)
+    {
+        int tamStr = str_length(str),
+            i;
+
+        for (i = 0; i < tamStr; i++)
+        {
+            if (str[i] == c)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    return -1;
 }
 
+// FUNCIONA
 int str_find_last(const char *str, const char c)
 {
+    if (str != NULL)
+    {
+        int tamStr = str_length(str),
+            i;
+
+        for (i = (tamStr - 1); i > 0; i--)
+        {
+            if (str[i] == c)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    return -1;
 }
 
+/*
 int str_count_words(const char *str)
 {
 }*/
