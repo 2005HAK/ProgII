@@ -8,7 +8,7 @@ int main()
     char string2[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '2', '\0'};
     char *ptr = &string;
     int num = str_length(ptr), k;
-
+/*
     printf("%i\n", num);
 
     char *strDuplicate = (char *)str_duplicate(&string);
@@ -54,7 +54,17 @@ int main()
         printf("%c", string[k]);
     }
 
-    free(strDuplicate);
+    free(strDuplicate);*/
+
+    char *strcat = str_concatenate(&string, &string2);
+
+    for (k = 0; k < str_length(strcat); k++)
+    {
+        printf("%c", string[k]);
+    }
+
+    free(strcat);
+
     return 0;
 }
 
@@ -256,15 +266,16 @@ char *str_concatenate(const char *stra, const char *strb)
 
     char *strConcat = (char *)malloc((tama + tamb + 1) * sizeof(char));
 
-    for (i = 0; i < str_length(strConcat); i++)
+    for (i = 0; i < (tama + tamb + 1); i++)
     {
         if (i < tama)
         {
             strConcat[i] = stra[i];
+            printf("\n%c", strConcat[i]);
         }
-        else if (i > tama && (i - tama) < tamb)
+        else if ((i >= tama) && ((i - tama) < tamb))
         {
-            strConcat[i] = strb[i - tama];
+            strConcat[i] = strb[(i - tama)];
         } else {
             strConcat[i] = '\0';
         }
