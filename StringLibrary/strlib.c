@@ -5,10 +5,14 @@
 int main()
 {
     char string[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '1', '\0'};
-    char string2[] = {'o', 'l', 'a', 'm', 'u', 'n', 'd', 'o', '2', '\0'};
+    char string2[] = {'o', 'l', 'a', 'm', ' ', 'n', 'd', 'o', '2', '\0'};
     char *ptr = &string;
     int num = str_length(ptr), k;
-/*
+
+    printf("%i\n", num);
+
+    num = str_length(&string2);
+
     printf("%i\n", num);
 
     char *strDuplicate = (char *)str_duplicate(&string);
@@ -49,26 +53,24 @@ int main()
 
     str_copy(&string, &string2);
 
-    for (k = 0; k < str_length(string); k++)
-    {
-        printf("%c", string[k]);
-    }
-
-    free(strDuplicate);*/
-
-    char *strcat = str_concatenate(&string, &string2);
+    char *strcat = (char *) str_concatenate(&string, &string2);
 
     for (k = 0; k < str_length(strcat); k++)
     {
         printf("%c", string[k]);
     }
 
+    printf("\n");
+
+    printf("%i", str_count_words(&string2));
+
+    free(strDuplicate);
     free(strcat);
 
     return 0;
 }
 
-// funcional
+// FUNCIONA
 int str_length(const char *str)
 {
     if (str == NULL)
@@ -87,6 +89,7 @@ int str_length(const char *str)
     }
 }
 
+// FUNCIONA
 char *str_duplicate(const char *str)
 {
     if (str != NULL)
@@ -123,6 +126,7 @@ char *str_duplicate(const char *str)
     }
 }
 
+// FUNICONA. CONFERIR DENOVO
 int str_compare(const char *stra, const char *strb)
 {
     int tama = str_length(stra),
@@ -154,6 +158,7 @@ int str_compare(const char *stra, const char *strb)
     }
 }
 
+// FUNCIONA. TESTAR RETORNOS
 int str_reverse(char *str)
 {
     if (str != NULL)
@@ -178,6 +183,7 @@ int str_reverse(char *str)
     return 0;
 }
 
+// FUNCIONA. TESTAR RETORNOS
 int str_upper(char *str)
 {
     if (str != NULL)
@@ -199,6 +205,7 @@ int str_upper(char *str)
     return -1;
 }
 
+// FUNCIONA. TESTAR RETORNOS
 int str_lower(char *str)
 {
     if (str != NULL)
@@ -220,7 +227,7 @@ int str_lower(char *str)
     return -1;
 }
 
-// testar retornos
+// FUNCIONA. RETORNOS NÃO TESTADOS
 int str_copy(char *dst, const char *src)
 {
     int tamDst = str_length(dst),
@@ -228,7 +235,7 @@ int str_copy(char *dst, const char *src)
         i,
         ver = 0;
 
-    if (dst != NULL && src != NULL)
+    if (dst != NULL || src != NULL)
     {
         if (tamDst >= tamSrc)
         {
@@ -245,7 +252,7 @@ int str_copy(char *dst, const char *src)
                 }
                 else
                 {
-                    dst[i] = NULL;
+                    dst[i] = ' ';
                 }
             }
 
@@ -257,7 +264,7 @@ int str_copy(char *dst, const char *src)
 
     return -1;
 }
-
+// não funciona
 char *str_concatenate(const char *stra, const char *strb)
 {
     int tama = str_length(stra),
@@ -276,22 +283,82 @@ char *str_concatenate(const char *stra, const char *strb)
         else if ((i >= tama) && ((i - tama) < tamb))
         {
             strConcat[i] = strb[(i - tama)];
-        } else {
+            printf("\n%c", strConcat[i]);
+        }
+        else
+        {
             strConcat[i] = '\0';
         }
     }
+
     return strConcat;
 }
-/*
 
+// FUNCIONA
 int str_find_first(const char *str, const char c)
 {
+    if (str != NULL)
+    {
+        int tamStr = str_length(str),
+            i;
+
+        for (i = 0; i < tamStr; i++)
+        {
+            if (str[i] == c)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    return -1;
 }
 
+// FUNCIONA
 int str_find_last(const char *str, const char c)
 {
+    if (str != NULL)
+    {
+        int tamStr = str_length(str),
+            i;
+
+        for (i = (tamStr - 1); i > 0; i--)
+        {
+            if (str[i] == c)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    return -1;
 }
+
 
 int str_count_words(const char *str)
 {
-}*/
+    if (str != NULL){
+        int tam = str_length(str), i, countSpace = 0, j;
+
+        for(i = 0; i < tam; i++){
+            if(str[i] == " "){
+                countSpace++;
+                j = i;
+                while(str[j + 1] == " "){
+                    j++;
+                }
+
+                i = j;
+            }
+        }
+
+        return countSpace + 1;
+    }
+
+    return -1;
+    
+}

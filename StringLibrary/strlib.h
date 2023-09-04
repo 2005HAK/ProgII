@@ -115,4 +115,42 @@ int str_copy(char *dst, const char *src);
  * do pela função.
  */
 char* 	str_concatenate (const char *stra, const char *strb);
+
+/**
+ * @brief string find first (encontra primeira ocorrência) --- 1.0 pontos
+ * @details encontra a primeira ocorrência do caractere c em str
+ * 
+ * @param str a string na qual o caractere será procurado
+ * @param c o caractere a ser buscado
+ * 
+ * @return retorna a posição da primeira ocorrência do caractere c na 
+ * string str. caso o caractere não seja encontrado ou str seja nula
+ * a função retorna -1.
+ */
+int 	str_find_first	(const char *str, const char c);
+
+/**
+ * @brief string find last (encontra última ocorrência)  --- 1.0 pontos
+ * @details encontra a última ocorrência do caractere c em str
+ * 
+ * @param str a string na qual o caractere será procurado
+ * @param c o caractere a ser buscado
+ * 
+ * @return retorna a posição da última ocorrência do caractere c na 
+ * string str. caso o caractere não seja encontrado ou str seja nula
+ * a função retorna -1.
+ */
+int 	str_find_last 	(const char *str, const char c);
+
+/**
+ * @brief string count words (conta palavras)  --- 2.0 pontos
+ * @details conta o número de palavras em uma string
+ * 
+ * @param str a string para a qual a contagem será realizada
+ * @return retorna o número de palavras da string. uma palavra é defini-
+ * da como uma região de caracteres (quaisquer caracteres) separada por 
+ * um ou mais espaços, ex: "   o gato preto cruzou a   estrada" possui
+ * seis palavras. retorna -1 caso str seja nula.
+ */
+int 	str_count_words (const char *str);
 #endif
