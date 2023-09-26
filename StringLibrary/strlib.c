@@ -1,9 +1,4 @@
 #include "strlib.h"
-
-int main(){
-    
-    return 0;
-}
 // FUNCIONA
 int str_length(const char *str){
     int i;
@@ -14,7 +9,7 @@ int str_length(const char *str){
         return i;
     }
 }
-// FUNCIONA. ERRO DE MANIPULAÇAO DE MEMORIA
+// FUNCIONA.
 char *str_duplicate(const char *str){
     int tam = str_length(str), j;
 
@@ -31,21 +26,17 @@ char *str_duplicate(const char *str){
 }
 // FUNCIONA.
 int str_compare(const char *stra, const char *strb){
-    int tama = str_length(stra), tamb = str_length(strb), i;
+    int ver = 0, i = 0;
 
-    if (tama == tamb){
-        for (i = 0; i < str_length(stra); i++){
-            if (stra[i] < strb[i])
-                return -1;
-            else if (stra[i] > strb[i])
-                return 1;
-        }
-        return 0;
+    while (ver == 0){
+        if (stra[i] < strb[i] || (stra[i] == '\0' && strb[i] != '\0'))
+            return -1;
+        else if (stra[i] > strb[i] || (stra[i] != '\0' && strb[i] == '\0'))
+            return 1;
+        if (stra[i] == '\0' && strb[i] == '\0') ver = 1;
+        i++;
     }
-    else if (tama < tamb)
-        return -1;
-    else
-        return 1;
+    return 0;
 }
 // FUNCIONA.
 int str_reverse(char *str){
@@ -114,7 +105,7 @@ int str_copy(char *dst, const char *src){
     }
     return -1;
 }
-// FUNCIONA. ERRO DE MANIPULAÇÃO DE MEMORIA
+// FUNCIONA.
 char *str_concatenate(const char *stra, const char *strb){
     int tama = (str_length(stra) != -1) ? str_length(stra) : 0, tamb = (str_length(strb) != -1) ? str_length(strb) : 0, i;
 
