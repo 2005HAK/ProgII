@@ -1,15 +1,49 @@
 #include "lab.h"
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
-// FUNCIONA
+int main()
+{
+    char arquivo[] = "arquivo-teste.txt";
+    double *valores;
+    int qtde, repeticao, posicao = 3;
+
+    valores = le_valores(arquivo, &qtde);
+
+    for (int i = 0; i < qtde; i++)
+    {
+        printf("%i\247 valor: %f\n", (i + 1), valores[i]);
+    }
+
+    printf("Quantidade de numeros: %i\n", qtde);
+
+    printf("Maior valor: %f\n", maior(valores, qtde));
+
+    printf("Menor valor: %f\n", menor(valores, qtde));
+
+    printf("Media dos valores: %f\n", media(valores, qtde));
+
+    printf("Desvio padr\306o dos valores: %f\n", desvio(valores, qtde));
+
+    printf("Amplitude dos valores: %f\n", amplitude(valores, qtde));
+
+    printf("Valor na posi\207\306o 4 dos valores: %f\n", valor(valores, qtde, posicao));
+
+    printf("Valor que mais se repete: %f\n", repetido(valores, qtde, &repeticao));
+
+    printf("Quantas vezes se repete: %i\n", repeticao);
+
+    return 0;
+}
+
 FILE *abre_arquivo(const char *arquivo)
 {
     FILE *arquivoOpen = fopen(arquivo, "r");
 
     return arquivoOpen;
 }
-// FUNCIONA
+
 int fecha_arquivo(FILE *arq)
 {
     return fclose(arq);
@@ -39,6 +73,8 @@ double *le_valores(const char *arquivo, unsigned int *qtd_numeros)
             vetValores[i] = valor;
             fscanf(arquivoAberto, "%f", &valor);
         }
+
+        fecha_arquivo(arquivoAberto);
 
         *qtd_numeros = qtde;
         return vetValores;
@@ -110,9 +146,7 @@ double desvio(double *valores, unsigned int qtd_numeros)
         int i;
 
         for (i = 0; i < qtd_numeros; i++)
-        {
             somaDesvios += pow((valores[i] - mediaDosValores), 2);
-        }
 
         return (sqrt(somaDesvios / qtd_numeros));
     }
@@ -123,19 +157,15 @@ double desvio(double *valores, unsigned int qtd_numeros)
 double amplitude(double *valores, unsigned int qtd_numeros)
 {
     if (valores != NULL)
-    {
         return (maior(valores, qtd_numeros) - menor(valores, qtd_numeros));
-    }
 
     return HUGE_VAL;
 }
 
 double valor(double *valores, unsigned int qtd_numeros, unsigned int posicao)
 {
-    if ((valores != NULL) && (posicao >= qtd_numeros))
-    {
+    if ((valores != NULL) && (posicao < qtd_numeros))
         return (valores[posicao]);
-    }
 
     return HUGE_VAL;
 }

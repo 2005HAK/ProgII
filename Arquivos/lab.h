@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 
-
 /*
  * Abre o arquivo cujo nome eh recebido por parametro ("arquivo") para leitura.
  * Retorna um ponteiro para o arquivo aberto.
