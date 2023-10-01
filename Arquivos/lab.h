@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 
+
 /*
  * Abre o arquivo cujo nome eh recebido por parametro ("arquivo") para leitura.
  * Retorna um ponteiro para o arquivo aberto.
@@ -21,7 +22,7 @@ int fecha_arquivo(FILE *arq);
  * Caso não for possível ler o arquivo, "qtd_numeros" deve conter ZERO e retornar a constante NULL.
  * Se "qtd_numeros" for invalido, a leitura deve ser invalidade e retornar a constante NULL.
  */
-double *le_valores(FILE *arquivo, unsigned int *qtd_numeros);
+double *le_valores(const char *arquivo, unsigned int *qtd_numeros);
 
 /*
  * Essa função retorna o maior valor presente no array.
