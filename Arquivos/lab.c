@@ -1,5 +1,6 @@
 #include "lab.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <math.h>
 
@@ -37,46 +38,47 @@ int main()
     return 0;
 }
 
-FILE *abre_arquivo(const char *arquivo)
-{
-    FILE *arquivoOpen = fopen(arquivo, "r");
-
-    return arquivoOpen;
+FILE *abre_arquivo(const char *arquivo){
+    if (arquivo != NULL) return fopen(arquivo, "r");
+    return NULL;
 }
 
-int fecha_arquivo(FILE *arq)
-{
-    return fclose(arq);
+int fecha_arquivo(FILE *arq){
+    if (arq != NULL){
+        fclose(arq);
+        return 0;
+    }
+    return 1;
 }
 
-double *le_valores(const char *arquivo, unsigned int *qtd_numeros)
-{
-    float valor;
-    int qtde = 0, i;
+double *le_valores(const char *arquivo, unsigned int *qtd_numeros){
+    if (qtd_numeros == NULL) return NULL;
+
     FILE *arquivoAberto = abre_arquivo(arquivo);
 
-    if (arquivoAberto != NULL)
-    {
-        fscanf(arquivoAberto, "%f", &valor);
+    if (arquivoAberto != NULL){
+        double valor;
+        int qtde = 0, i;
 
-        for (qtde; !feof(arquivoAberto); qtde++)
-            fscanf(arquivoAberto, "%f", &valor);
+        fscanf(arquivoAberto, "%lf", &valor);
+
+        for (qtde; !feof(arquivoAberto); qtde++) fscanf(arquivoAberto, "%lf", &valor);
+
+        *qtd_numeros = qtde;
 
         double *vetValores = (double *)malloc(sizeof(double) * qtde);
 
         fseek(arquivoAberto, 0, SEEK_SET);
 
-        fscanf(arquivoAberto, "%f", &valor);
+        fscanf(arquivoAberto, "%lf", &valor);
 
-        for (i = 0; i < qtde; i++)
-        {
+        for (i = 0; i < qtde; i++){
             vetValores[i] = valor;
-            fscanf(arquivoAberto, "%f", &valor);
+            fscanf(arquivoAberto, "%lf", &valor);
         }
 
         fecha_arquivo(arquivoAberto);
-
-        *qtd_numeros = qtde;
+        arquivoAberto = NULL;
         return vetValores;
     }
 
@@ -84,18 +86,12 @@ double *le_valores(const char *arquivo, unsigned int *qtd_numeros)
     return NULL;
 }
 
-double maior(double *valores, unsigned int qtd_numeros)
-{
-    if (valores != NULL)
-    {
+double maior(double *valores, unsigned int qtd_numeros){
+    if (valores != NULL){
         double maior = valores[0];
         int i;
 
-        for (i = 1; i < qtd_numeros; i++)
-        {
-            if (valores[i] > maior)
-                maior = valores[i];
-        }
+        for (i = 1; i < qtd_numeros; i++) if (valores[i] > maior) maior = valores[i];
 
         return maior;
     }
@@ -103,18 +99,12 @@ double maior(double *valores, unsigned int qtd_numeros)
     return HUGE_VAL;
 }
 
-double menor(double *valores, unsigned int qtd_numeros)
-{
-    if (valores != NULL)
-    {
+double menor(double *valores, unsigned int qtd_numeros){
+    if (valores != NULL)    {
         double menor = valores[0];
         int i;
 
-        for (i = 1; i < qtd_numeros; i++)
-        {
-            if (valores[i] < menor)
-                menor = valores[i];
-        }
+        for (i = 1; i < qtd_numeros; i++) if (valores[i] < menor) menor = valores[i];
 
         return menor;
     }
@@ -122,15 +112,12 @@ double menor(double *valores, unsigned int qtd_numeros)
     return HUGE_VAL;
 }
 
-double media(double *valores, unsigned int qtd_numeros)
-{
-    if (valores != NULL)
-    {
+double media(double *valores, unsigned int qtd_numeros){
+    if (valores != NULL){
         int i;
         double soma = 0;
 
-        for (i = 0; i < qtd_numeros; i++)
-            soma += valores[i];
+        for (i = 0; i < qtd_numeros; i++) soma += valores[i];
 
         return (soma / qtd_numeros);
     }
@@ -138,73 +125,49 @@ double media(double *valores, unsigned int qtd_numeros)
     return HUGE_VAL;
 }
 
-double desvio(double *valores, unsigned int qtd_numeros)
-{
-    if (valores != NULL)
-    {
+double desvio(double *valores, unsigned int qtd_numeros){
+    if (valores != NULL)    {
         double mediaDosValores = media(valores, qtd_numeros), somaDesvios = 0;
         int i;
 
-        for (i = 0; i < qtd_numeros; i++)
-            somaDesvios += pow((valores[i] - mediaDosValores), 2);
+        for (i = 0; i < qtd_numeros; i++) somaDesvios += pow((valores[i] - mediaDosValores), 2);
 
-        return (sqrt(somaDesvios / qtd_numeros));
+        return (sqrt(somaDesvios / (qtd_numeros - 1)));
     }
 
     return HUGE_VAL;
 }
 
-double amplitude(double *valores, unsigned int qtd_numeros)
-{
-    if (valores != NULL)
-        return (maior(valores, qtd_numeros) - menor(valores, qtd_numeros));
+double amplitude(double *valores, unsigned int qtd_numeros){
+    if (valores != NULL) return (maior(valores, qtd_numeros) - menor(valores, qtd_numeros));
 
     return HUGE_VAL;
 }
 
-double valor(double *valores, unsigned int qtd_numeros, unsigned int posicao)
-{
-    if ((valores != NULL) && (posicao < qtd_numeros))
-        return (valores[posicao]);
+double valor(double *valores, unsigned int qtd_numeros, unsigned int posicao){
+    if ((valores != NULL) && (posicao < qtd_numeros)) return (valores[posicao]);
 
     return HUGE_VAL;
 }
 
-double repetido(double *valores, unsigned int qtd_numeros, unsigned int *qtd_repeticao)
-{
-    if (valores != NULL)
-    {
+double repetido(double *valores, unsigned int qtd_numeros, unsigned int *qtd_repeticao){
+    if (valores != NULL){
         double *valoresRep = (double *)malloc(sizeof(double) * qtd_numeros), valorRep;
         int *repeticoes = (int *)calloc(qtd_numeros, sizeof(int)), i, j, w = 0, ver = 0, maior = 0, pos = 0;
 
-        for (i = 0; i < qtd_numeros; i++)
-        {
-            for (j = 0; j < qtd_numeros; j++)
-            {
-                if (valores[i] == valoresRep[j])
-                    ver = 1;
-            }
+        for (i = 0; i < qtd_numeros; i++){
+            for (j = 0; j < qtd_numeros; j++) if (valores[i] == valoresRep[j]) ver = 1;
 
-            if (ver == 0)
-            {
+            if (ver == 0){
                 valoresRep[w] = valores[i];
                 w++;
             }
         }
 
-        for (i = 0; i < (w + 1); i++)
-        {
-            for (j = 0; j < qtd_numeros; j++)
-            {
-                if (valores[j] == valoresRep[i])
-                    repeticoes[i]++;
-            }
-        }
+        for (i = 0; i < (w + 1); i++) for (j = 0; j < qtd_numeros; j++) if (valores[j] == valoresRep[i]) repeticoes[i]++;
 
-        for (i = 0; i < (w + 1); i++)
-        {
-            if (repeticoes[i] > maior)
-            {
+        for (i = 0; i < (w + 1); i++){
+            if (repeticoes[i] > maior){
                 maior = repeticoes[i];
                 pos = i;
             }
