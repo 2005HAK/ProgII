@@ -31,7 +31,7 @@ int main()
 
 	char line[256];
 
-	FILE *s = fopen("jogadores.dat", "w+");
+	FILE *s = fopen("jogadores.dat", "wb+");
 
 	int n = 442;
 
