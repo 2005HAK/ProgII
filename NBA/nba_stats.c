@@ -192,7 +192,7 @@ int statj_pontos(jogador_t *jogadores, int njogadores, char tipo){
     }
     return -1;
 }
-//aparentemente errado
+
 int statt_soma_pontos(jogador_t *jogadores, int njogadores, char *time){
     int somaPontos = 0, i;
 
@@ -202,7 +202,7 @@ int statt_soma_pontos(jogador_t *jogadores, int njogadores, char *time){
     }
     return -1;
 }
-//aparentemente errado
+
 float statt_media_pontos(jogador_t *jogadores, int njogadores, char *time){
     float somaPontos = 0, qtdJogadores = 0;
     int i;
@@ -217,7 +217,7 @@ float statt_media_pontos(jogador_t *jogadores, int njogadores, char *time){
     }
     return -1;
 }
-//aparentemente errado
+
 float statt_media_idade(jogador_t *jogadores, int njogadores, char *time){
     float somaIdade = 0, qtdJogadores = 0;
     int i;
