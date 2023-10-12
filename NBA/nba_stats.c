@@ -18,7 +18,6 @@ int le_cabecario(char *nome){
 jogador_t *le_jogadores(char *nome, int *njogadores){
     if (nome != NULL && njogadores != NULL){
         *njogadores = le_cabecario(nome);
-
         if(*njogadores != 0){
             FILE *arquivo = fopen(nome, "rb");
             jogador_t *jogadores = (jogador_t *)malloc((*njogadores) * sizeof(jogador_t));
@@ -37,7 +36,6 @@ jogador_t *le_jogadores(char *nome, int *njogadores){
 
 int statj_mais_arremessos(jogador_t *jogadores, int njogadores, char tipo){
     int i, indice = 0;
-
     if (jogadores != NULL){
         switch (tipo){
             case '2':
@@ -63,7 +61,6 @@ int statj_mais_arremessos(jogador_t *jogadores, int njogadores, char tipo){
 
 int statj_mais_cestas(jogador_t *jogadores, int njogadores, char tipo){
     int i, indice = 0;
-
     if (jogadores != NULL){
         switch (tipo){
             case '2':
@@ -89,7 +86,6 @@ int statj_mais_cestas(jogador_t *jogadores, int njogadores, char tipo){
 //ta estranho
 int statj_melhor_percentual(jogador_t *jogadores, int njogadores, char tipo){
     int i, indice = 0;
-
     if (jogadores != NULL){
         switch (tipo){
             case '2':
@@ -115,7 +111,6 @@ int statj_melhor_percentual(jogador_t *jogadores, int njogadores, char tipo){
 
 int statj_jogos(jogador_t *jogadores, int njogadores, char tipo){
     int indice = 0, i;
-
     if (jogadores != NULL){
         switch (tipo){
             case '+':
@@ -135,7 +130,6 @@ int statj_jogos(jogador_t *jogadores, int njogadores, char tipo){
 
 int statj_idade(jogador_t *jogadores, int njogadores, char tipo){
     int indice = 0, i;
-
     if (jogadores != NULL){
         switch (tipo){
             case '+':
@@ -155,7 +149,6 @@ int statj_idade(jogador_t *jogadores, int njogadores, char tipo){
 
 int statj_minutos(jogador_t *jogadores, int njogadores, char tipo){
     int indice = 0, i;
-
     if (jogadores != NULL){
         switch (tipo){
             case '+':
@@ -175,7 +168,6 @@ int statj_minutos(jogador_t *jogadores, int njogadores, char tipo){
 
 int statj_pontos(jogador_t *jogadores, int njogadores, char tipo){
     int indice = 0, i;
-
     if (jogadores != NULL){
         switch (tipo){
             case '+':
@@ -195,7 +187,6 @@ int statj_pontos(jogador_t *jogadores, int njogadores, char tipo){
 
 int statt_soma_pontos(jogador_t *jogadores, int njogadores, char *time){
     int somaPontos = 0, i;
-
     if (jogadores != NULL && time != NULL){ 
         for (i = 0; i < njogadores; i++) if (strcmp(jogadores[i].time, time) == 0) somaPontos += jogadores[i].pontos;
         return somaPontos;
@@ -206,14 +197,13 @@ int statt_soma_pontos(jogador_t *jogadores, int njogadores, char *time){
 float statt_media_pontos(jogador_t *jogadores, int njogadores, char *time){
     float somaPontos = 0, qtdJogadores = 0;
     int i;
-    
     if (jogadores != NULL && time != NULL){
         for (i = 0; i < njogadores; i++)
             if (strcmp(jogadores[i].time, time) == 0){
                 somaPontos += jogadores[i].pontos;
                 qtdJogadores++;
             }
-        return (somaPontos / qtdJogadores);
+        return (somaPontos == 0 && qtdJogadores == 0) ? 0 : (somaPontos / qtdJogadores);
     }
     return -1;
 }
@@ -221,21 +211,19 @@ float statt_media_pontos(jogador_t *jogadores, int njogadores, char *time){
 float statt_media_idade(jogador_t *jogadores, int njogadores, char *time){
     float somaIdade = 0, qtdJogadores = 0;
     int i;
-
     if (jogadores != NULL && time != NULL){
         for (i = 0; i < njogadores; i++)
             if (strcmp(jogadores[i].time, time) == 0){
                 somaIdade += jogadores[i].idade;
                 qtdJogadores++;
             }
-        return (somaIdade / qtdJogadores);
+        return (somaIdade == 0 && qtdJogadores == 0) ? 0 : (somaIdade / qtdJogadores);
     }
     return -1;
 }
 
 int statt_posicao(jogador_t *jogadores, int njogadores, char *time, char *posicao){
     int qtdJogadores = 0, i;
-
     if (jogadores != NULL && time != NULL && posicao != NULL){
         for (i = 0; i < njogadores; i++) if (strcmp(jogadores[i].time, time) == 0) if (strcmp(jogadores[i].posicao, posicao) == 0) qtdJogadores++;
         return qtdJogadores;
