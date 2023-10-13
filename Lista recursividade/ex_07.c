@@ -1,16 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int imprimelementos(int *vet){
-    if (vet[(sizeof(vet) / sizeof(int)) - 1] != *vet){
-        printf("%i ", *vet);
-        imprimelementos(vet + 1);
-    }
+void imprimeElementos(int *vet, int tam){
+    printf("%i ", *vet);
+    if(tam > 1) imprimeElementos(vet + 1, tam - 1);
 }
 
 int main()
 {
-    int vet[] = {1, 2, 3, 4, 5}; 
-    imprimelementos(vet);
+    int vet[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; 
+    imprimeElementos(vet, 10);
     return 0;
 }
