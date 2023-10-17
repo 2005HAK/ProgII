@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 /*
- * Retorna 1 se é palindromo e retorna 0 se não é 
+ * Retorna 1 se é palindromo e retorna 0 se não é palindromo
 */
 int verificaPalindromo(char *palavra){
     int tam = strlen(palavra);
@@ -11,12 +11,5 @@ int verificaPalindromo(char *palavra){
         palavra[tam - 1] = '\0';
         return verificaPalindromo(palavra + 1);
     }
-    return 0;
-}
-
-int main()
-{
-    char palavra[] = "Sos";
-    printf("%i", verificaPalindromo(palavra));
     return 0;
 }

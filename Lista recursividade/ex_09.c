@@ -9,13 +9,3 @@ void inverteVetor(int *vet, int tam){
         inverteVetor(vet + 1, tam - 2);
     }
 }
-
-int main()
-{
-    int vet[] = {1, 2, 3, 4}; 
-    inverteVetor(vet, 4);
-    for(int i = 0; i < 4; i++){
-        printf("%i ", vet[i]);
-    }
-    return 0;
-}
