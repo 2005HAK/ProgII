@@ -1,5 +1,28 @@
 {
     "files.associations": {
         "math.h": "c"
-    }
+    },
+    "cSpell.words": [
+        "atribui",
+        "capacidade",
+        "conjunto",
+        "cria",
+        "Criação",
+        "destroi",
+        "diferenca",
+        "elemento",
+        "ELEMENTOS",
+        "igual",
+        "imprime",
+        "inicializa",
+        "inserção",
+        "insere",
+        "interseccao",
+        "maximo",
+        "membro",
+        "minimo",
+        "uniao",
+        "vazio",
+        "vetor"
+    ]
 }

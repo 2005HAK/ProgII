@@ -3,6 +3,8 @@
 
 #include "conjunto_interface.h"
 #include <limits.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #define ELEMENTOS 10
 #define ELEM_MAX INT_MAX
