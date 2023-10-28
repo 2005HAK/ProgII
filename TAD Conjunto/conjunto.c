@@ -1,5 +1,5 @@
 #include "conjunto_privado.h"
-
+//Funciona
 conjunto_t *conjunto_cria(void){
     conjunto_t *conjunto = (conjunto_t*) malloc(sizeof(conjunto_t));
     if(conjunto != NULL){
@@ -9,7 +9,14 @@ conjunto_t *conjunto_cria(void){
     }
     return NULL;
 }
-
+//Funciona
+void conjunto_inicializa_vazio(conjunto_t *a){
+    if(a != NULL){
+        (a -> vetor) = (elem_t*) calloc((a -> capacidade), sizeof(elem_t));
+        (a -> numero) = 0;
+    }
+}
+//Funciona
 void conjunto_destroi(conjunto_t **a){
     if((*a) != NULL){
         if((*a) -> vetor) free((*a) -> vetor);
@@ -17,33 +24,29 @@ void conjunto_destroi(conjunto_t **a){
         *a = NULL;
     }
 }
-
+//Funciona
 int conjunto_numero_elementos(conjunto_t *a){
-    if(a != NULL) return a -> numero;
+    if(a != NULL) return (a -> numero);
     return 0;
 }
-
-void conjunto_inicializa_vazio(conjunto_t *a){
-    if(a != NULL){
-        (a -> vetor) = (elem_t*) malloc(sizeof(int) * (a -> capacidade));
-        (a -> numero) = 0;
-    }
-}
-//salvar dados em outro vetor antes e mandar pro novo e dar free no antigo
+//Funciona
 int conjunto_insere_elemento(elem_t x, conjunto_t *a){
     int i;
     if(a != NULL){
         for(i = 0; i < (a -> numero); i++) if(x == (a -> vetor)[i]) return 1;
-        if(((a -> numero) + 1)  == (a -> capacidade)){
-            (a -> vetor) = (elem_t*) realloc((a -> vetor), (a -> capacidade) + 1);
-            (a -> capacidade) += 1;
+
+        if((a -> numero) == (a -> capacidade)){
+            (a -> vetor) = realloc((a -> vetor), ((a -> capacidade) + 10) * sizeof(elem_t));
+            if((a -> vetor) == NULL) return 0;
+            (a -> capacidade) += 10;
         }
         (a -> vetor)[a -> numero] = x;
-        (a -> numero) += 1;
+        (a -> numero)++;
+        return 1;
     }
     return 0;
 }
-
+//da para retirar posições do vetor quando isso é feito. Tem um bug quando a posição apos o numero é 0
 void conjunto_remove_elemento(elem_t x, conjunto_t *a){
     int i;
     if(a != NULL){
@@ -53,62 +56,114 @@ void conjunto_remove_elemento(elem_t x, conjunto_t *a){
                     if((a -> vetor)[i + 1] != 0) (a -> vetor)[i] = (a -> vetor)[i + 1];
                     else (a -> vetor)[i] = 0;
                 }
-                (a -> numero) -= 1;
+                (a -> numero)--;
             }
         } 
-        
     }
 }
-//tirar o espaço do ultimo elemento
+//Funciona
 void conjunto_imprime(conjunto_t *a){
     int i;
     if(a != NULL){
         if((a -> vetor) != NULL){
             for(i = 0; i < (a -> numero); i++){
-                printf("%i ", (a -> vetor)[i]);
+                if((i + 1) == (a -> numero)) printf("%i\n", (a -> vetor)[i]);
+                else printf("%i ", (a -> vetor)[i]);
             }
         }
     }
 }
-
-void conjunto_uniao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
-    int i, j;
+//Funciona
+void conjunto_atribui(conjunto_t *a, conjunto_t *b){
+    int i;
     if(a != NULL && b != NULL){
-        c = (c == NULL) ? conjunto_cria() : c;
+        if(b -> vetor) free(b -> vetor);
+        
+        (b -> capacidade) = (a -> capacidade);
+        conjunto_inicializa_vazio(b);
+        for(i = 0; i < (a -> numero); i++){
+            conjunto_insere_elemento((a -> vetor)[i], b);
+        }
+    }
+}
+//Funciona
+void conjunto_interseccao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
+    int i, j;
+    if(a != NULL && b != NULL && c != NULL){
         for(i = 0; i < (a -> numero); i++){
             for(j = 0; j < (b -> numero); j++){
                 if((a -> vetor)[i] == (b -> vetor)[j]){
-
+                    conjunto_insere_elemento((a -> vetor)[i], c);
                 }
             }
         }
     }
 }
-
-void conjunto_interseccao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
-
-}
-
+//Funciona
 void conjunto_diferenca(conjunto_t *a, conjunto_t *b, conjunto_t *c){
-    
+    int i, j, verifica = 0;
+    if(a != NULL && b != NULL && c != NULL){
+        for(i = 0; i < (a -> numero); i++){
+            for(j = 0; j < (b -> numero); j++){
+                if((a -> vetor)[i] == (b -> vetor)[j]) verifica = 1;
+            }
+            if(verifica == 0) conjunto_insere_elemento((a -> vetor)[i], c);
+            verifica = 0;
+        }
+        for(i = 0; i < (b -> numero); i++){
+            for(j = 0; j < (a -> numero); j++){
+                if((b -> vetor)[i] == (a -> vetor)[j]) verifica = 1;
+            }
+            if(verifica == 0) conjunto_insere_elemento((b -> vetor)[i], c);
+            verifica = 0;
+        }
+    }
 }
-
+//Funciona
+void conjunto_uniao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
+    conjunto_interseccao(a, b, c);
+    conjunto_diferenca(a, b, c);
+}
+//Funciona
 int conjunto_membro(elem_t x, conjunto_t *a){
-
+    int i;
+    if(a != NULL){
+        for(i = 0; i < (a -> numero); i++) if(x == (a -> vetor)[i]) return 1;
+        return 0;
+    }
+    return 0;
 }
-
-void conjunto_atribui(conjunto_t *a, conjunto_t *b){
-
-}
-
+//Funciona
 int conjunto_igual(conjunto_t *a, conjunto_t *b){
-
+    int i, j, verifica = 0;
+    if(a != NULL && b != NULL){
+        for(i = 0; i < (a -> numero); i++){
+            for(j = 0; j < (b -> numero); j++){
+                if((a -> vetor)[i] == (b -> vetor)[j]) verifica = 1;
+            }
+            if(verifica == 0) return 0;
+            verifica = 0;
+        }
+        return 1;
+    }
+    return 0;
 }
-
+//Funciona
 elem_t conjunto_minimo(conjunto_t *a){
-
+    int i, minimo = ELEM_MAX;
+    if(a != NULL){
+        for(i = 0; i < (a -> numero); i++) if((a -> vetor)[i] < minimo) minimo = (a -> vetor)[i];
+        return minimo;
+    }
+    return minimo;
 }
-
+//Funciona
 elem_t conjunto_maximo(conjunto_t *a){
-
+    int i, maximo = ELEM_MIN;
+    if(a != NULL){
+        if(a -> numero == 0) return maximo;
+        for(i = 0; i < (a -> numero); i++) if((a -> vetor)[i] > maximo) maximo = (a -> vetor)[i];
+        return maximo;
+    }
+    return maximo;
 }
