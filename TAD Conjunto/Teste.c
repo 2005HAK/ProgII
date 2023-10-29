@@ -14,13 +14,13 @@ int main(){
     // conjunto_inicializa_vazio(d);
 
     //inserção de elementos
-    // for(elem_t i = 1; i < 21; i++) conjunto_insere_elemento(i, a);
+    for(elem_t i = 1; i < 21; i++) conjunto_insere_elemento(i, a);
     // for(elem_t i = 21; i < 31; i++) conjunto_insere_elemento(i, b);
     // conjunto_diferenca(a, b, c);
     // conjunto_interseccao(a, b, d);
 
     //printa capacidade
-    // printf("Capacidade de elementos: %i \n", (a -> capacidade));
+    printf("Numero de elementos: %i \n", conjunto_numero_elementos(a));
     // for(elem_t i = 9; i < 20; i++) conjunto_remove_elemento(i, a);
     // printf("Capacidade de elementos: %i \n", (a -> capacidade));
     // for(elem_t i = 0; i < 20; i++) conjunto_insere_elemento(i, b);

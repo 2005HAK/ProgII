@@ -15,28 +15,27 @@ conjunto_t *conjunto_cria(void){
 //Funciona
 void conjunto_destroi(conjunto_t **a){
     if(a != NULL && (*a) != NULL){
-        if(((*a) -> vetor) != NULL){
+        if(((*a) -> vetor)){
             free((*a) -> vetor);
-            (*a) -> vetor = NULL;
+            ((*a) -> vetor) = NULL;
         } 
         free(*a);
         *a = NULL;
         a = NULL;
     }
 }
-//Não tem motivos para estar errado
+//Funciona
 void conjunto_inicializa_vazio(conjunto_t *a){
     if(a != NULL) (a -> numero) = 0;
 }
-//Não tem motivos para estar errado
+//Funciona
 int conjunto_numero_elementos(conjunto_t *a){
-    if(a != NULL) return (a -> numero);
-    return 0;
+    return (a != NULL) ? (a -> numero) : 0;
 }
 
 int conjunto_insere_elemento(elem_t x, conjunto_t *a){
-    int i;
     if(a != NULL){
+        int i;
         for(i = 0; i < (a -> numero); i++) if(x == (a -> vetor)[i]) return 1;
 
         if((a -> numero) == (a -> capacidade)){
@@ -71,8 +70,8 @@ void conjunto_remove_elemento(elem_t x, conjunto_t *a){
 }
 
 void conjunto_imprime(conjunto_t *a){
-    int i;
     if(a != NULL && (a -> vetor) != NULL){
+        int i;
         for(i = 0; i < (a -> numero); i++){
             if((i + 1) == (a -> numero)) printf("%i\n", (a -> vetor)[i]);
             else printf("%i ", (a -> vetor)[i]);
