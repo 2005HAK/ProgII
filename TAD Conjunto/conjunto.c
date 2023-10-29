@@ -8,6 +8,7 @@ conjunto_t *conjunto_cria(void){
         (conjunto -> capacidade) = ELEMENTOS;
         (conjunto -> vetor) = (elem_t*) malloc((conjunto -> capacidade) * sizeof(elem_t));
         if((conjunto -> vetor) == NULL) return NULL;
+        conjunto_inicializa_vazio(conjunto);
         return conjunto;
     }
     return NULL;
