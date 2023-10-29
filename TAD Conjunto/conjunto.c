@@ -73,10 +73,12 @@ void conjunto_remove_elemento(elem_t x, conjunto_t *a){
 void conjunto_imprime(conjunto_t *a){
     if(a != NULL && (a -> vetor) != NULL){
         int i;
-        for(i = 0; i < (a -> numero); i++){
-            if((i + 1) == (a -> numero)) printf("%i\n", (a -> vetor)[i]);
-            else printf("%i ", (a -> vetor)[i]);
-        }
+        if((a -> numero) != 0){
+            for(i = 0; i < (a -> numero); i++){
+                if((i + 1) == (a -> numero)) printf("%i\n", (a -> vetor)[i]);
+                else printf("%i ", (a -> vetor)[i]);
+            }
+        }else printf("\n");
     }
 }
 
