@@ -108,6 +108,9 @@ void conjunto_interseccao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
 void conjunto_diferenca(conjunto_t *a, conjunto_t *b, conjunto_t *c){
     int i, j, verifica = 0;
     if(a != NULL && b != NULL && c != NULL){
+        conjunto_destroi(&c);
+        c = conjunto_cria();
+        conjunto_inicializa_vazio(c);
         for(i = 0; i < (a -> numero); i++){
             for(j = 0; j < (b -> numero); j++){
                 if((a -> vetor)[i] == (b -> vetor)[j]) verifica = 1;
