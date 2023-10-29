@@ -8,20 +8,20 @@ int main(){
     conjunto_t *b = conjunto_cria();
     conjunto_t *c = conjunto_cria();
     conjunto_t *d = conjunto_cria();
-    conjunto_inicializa_vazio(a);
-    conjunto_inicializa_vazio(b);
-    conjunto_inicializa_vazio(c);
-    // conjunto_inicializa_vazio(d);
+    conjunto_t *e = conjunto_cria();
 
     //inserção de elementos
     for(elem_t i = 1; i < 21; i++) conjunto_insere_elemento(i, a);
     for(elem_t i = 21; i < 31; i++) conjunto_insere_elemento(i, b);
     conjunto_diferenca(a, b, c);
     conjunto_interseccao(a, b, d);
+    conjunto_uniao(a, b, e);
 
-    //printa capacidade
+    //printa quantidade de elementos
     printf("Numero de elementos de A: %i \n", conjunto_numero_elementos(a));
     printf("Numero de elementos de B: %i \n", conjunto_numero_elementos(b));
+    printf("Numero de elementos de C: %i \n", conjunto_numero_elementos(c));
+    printf("Numero de elementos de D: %i \n", conjunto_numero_elementos(d));
 
     printf("Conjunto A: ");
     conjunto_imprime(a);
@@ -41,6 +41,8 @@ int main(){
     conjunto_imprime(c);
     printf("Conjunto D: ");
     conjunto_imprime(d);
+    printf("Conjunto E: ");
+    conjunto_imprime(e);
 
     // conjunto_atribui(a, b);
 
@@ -55,6 +57,7 @@ int main(){
     conjunto_destroi(&b);
     conjunto_destroi(&c);
     conjunto_destroi(&d);
+    conjunto_destroi(&e);
 
     // conjunto_imprime(b);
     return 0;
