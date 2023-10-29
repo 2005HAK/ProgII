@@ -111,7 +111,6 @@ void conjunto_interseccao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
 void conjunto_diferenca(conjunto_t *a, conjunto_t *b, conjunto_t *c){
     int i, j, verifica = 0;
     if(a != NULL && b != NULL && c != NULL){
-        if(c -> numero == 0) conjunto_inicializa_vazio(c);
         for(i = 0; i < (a -> numero); i++){
             for(j = 0; j < (b -> numero); j++){
                 if((a -> vetor)[i] == (b -> vetor)[j]) verifica = 1;
@@ -159,20 +158,21 @@ int conjunto_igual(conjunto_t *a, conjunto_t *b){
 }
 
 elem_t conjunto_minimo(conjunto_t *a){
-    int i, minimo = ELEM_MAX;
     if(a != NULL){
+        int i, minimo;
+        if(a -> numero == 0) return ELEM_MAX;
         for(i = 0; i < (a -> numero); i++) if((a -> vetor)[i] < minimo) minimo = (a -> vetor)[i];
         return minimo;
     }
-    return minimo;
+    return ELEM_MAX;
 }
 
 elem_t conjunto_maximo(conjunto_t *a){
-    int i, maximo = ELEM_MIN;
     if(a != NULL){
-        if(a -> numero == 0) return maximo;
+        int i, maximo;
+        if(a -> numero == 0) return ELEM_MIN;
         for(i = 0; i < (a -> numero); i++) if((a -> vetor)[i] > maximo) maximo = (a -> vetor)[i];
         return maximo;
     }
-    return maximo;
+    return ELEM_MIN;
 }
