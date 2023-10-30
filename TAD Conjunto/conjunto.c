@@ -31,7 +31,7 @@ void conjunto_inicializa_vazio(conjunto_t *a){
 }
 //Funciona
 int conjunto_numero_elementos(conjunto_t *a){
-    return (a != NULL) ? (a -> numero) : -1;
+    return (a != NULL) ? (a -> numero) : 0;
 }
 
 int conjunto_insere_elemento(elem_t x, conjunto_t *a){
