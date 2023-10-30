@@ -6,7 +6,7 @@ conjunto_t *conjunto_cria(void){
     conjunto_t *cria = (conjunto_t*) malloc (sizeof(conjunto_t));
     if(cria == NULL) return NULL;
     cria -> capacidade = ELEMENTOS;
-    cria -> vetor = (int*) malloc (sizeof(int)*ELEMENTOS);
+    cria -> vetor = (int*) malloc (sizeof(int)*(cria -> capacidade));
     if(cria -> vetor == NULL) return NULL;
     return cria;
 }
@@ -129,10 +129,10 @@ int conjunto_insere_elemento(elem_t x, conjunto_t *a){
             return 1;
         }
         if((a -> numero) == (a -> capacidade)){
-            ( a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * ((a -> capacidade) + 10));
+            ( a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * ((a -> capacidade) + 1));
             (a -> vetor[(a -> numero)]) = x;
             (a -> numero) += 1;
-            (a -> capacidade) += 10;
+            (a -> capacidade) += 1;
             return 1;
         } 
     } return 0;
@@ -148,11 +148,11 @@ void conjunto_remove_elemento(elem_t x, conjunto_t *a){
         for(j = 0; j < (a -> numero); j++){
             if( j != ((a -> numero) -1) && a -> vetor[j] == a -> vetor[j - 1] ) a -> vetor[j] = a -> vetor[j + 1];
         }
-        if((a -> numero) < ((a -> capacidade) - 10)){
+        if((a -> numero) < ((a -> capacidade) - 10) && (a -> capacidade) > 10){
             (a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * ((a -> capacidade) - 10));
-            (a -> numero) -= 1;
             (a -> capacidade) -= 10;
         }
+        (a -> numero) -= 1;
     }
 }
  

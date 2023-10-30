@@ -5,15 +5,11 @@
 int main(){
     //Criação co conjunto
     conjunto_t *a = conjunto_cria();
-    conjunto_t *b;
+    conjunto_t *b = conjunto_cria();
     conjunto_t *c = conjunto_cria();
     conjunto_t *d = conjunto_cria();
     conjunto_t *e = conjunto_cria();
-    conjunto_inicializa_vazio(a);
-    conjunto_inicializa_vazio(b);
-    conjunto_inicializa_vazio(c);
-    conjunto_inicializa_vazio(d);
-    conjunto_inicializa_vazio(e);
+
 
     //inserção de elementos
     for(elem_t i = 1; i < 21; i++) conjunto_insere_elemento(i, a);
@@ -49,21 +45,21 @@ int main(){
     printf("Conjunto E: ");
     conjunto_imprime(e);
 
-    // conjunto_atribui(a, b);
+    //conjunto_atribui(a, b);
+    printf("Conjunto D: ");
+    conjunto_imprime(d);
 
-    // conjunto_imprime(d);
+    //conjunto_uniao(a, b, d);
+    printf("Conjunto D: ");
+    conjunto_imprime(d);
 
-    // conjunto_uniao(a, b, d);
-
-    // conjunto_imprime(d);
-
-    // printf("%i \n", conjunto_minimo(NULL));
+    printf("%i \n", conjunto_minimo(NULL));
     conjunto_destroi(&a);
     conjunto_destroi(&b);
     conjunto_destroi(&c);
     conjunto_destroi(&d);
     conjunto_destroi(&e);
 
-    // conjunto_imprime(b);
+    conjunto_imprime(b);
     return 0;
 }
