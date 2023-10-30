@@ -12,8 +12,8 @@ int main(){
 
 
     //inserção de elementos
-    for(elem_t i = 1; i < 21; i++) conjunto_insere_elemento(i, a);
-    for(elem_t i = 21; i < 31; i++) conjunto_insere_elemento(i, b);
+    for(elem_t i = 1000; i < 5000; i++) printf("%i deu certo A? %i\n", i, conjunto_insere_elemento(i, a));
+    for(elem_t i = 1500; i < 3500; i++) printf("%i deu certo B? %i\n", i, conjunto_insere_elemento(i, b));
     conjunto_diferenca(a, b, c);
     conjunto_interseccao(a, b, d);
     conjunto_uniao(a, b, e);
@@ -28,10 +28,10 @@ int main(){
     conjunto_imprime(a);
 
     //Remove elementos
-    for(elem_t i = 2; i < 5; i++) conjunto_remove_elemento(i, b);
+    for(elem_t i = 2; i < 500; i++) conjunto_remove_elemento(i, a);
 
     //printa tamanho
-    printf("Numero de elementos de A apos retirar um elemento: %i \n", conjunto_numero_elementos(a));
+    printf("Numero de elementos de A apos retirar 3 elemento: %i \n", conjunto_numero_elementos(a));
 
     //Printa conjunto
     printf("Conjunto A: ");
@@ -45,15 +45,15 @@ int main(){
     printf("Conjunto E: ");
     conjunto_imprime(e);
 
-    //conjunto_atribui(a, b);
+    conjunto_atribui(a, b);
+    printf("Conjunto B: ");
+    conjunto_imprime(b);
+
+    conjunto_uniao(a, b, d);
     printf("Conjunto D: ");
     conjunto_imprime(d);
 
-    //conjunto_uniao(a, b, d);
-    printf("Conjunto D: ");
-    conjunto_imprime(d);
-
-    printf("%i \n", conjunto_minimo(NULL));
+    printf("%i \n", conjunto_minimo(b));
     conjunto_destroi(&a);
     conjunto_destroi(&b);
     conjunto_destroi(&c);
