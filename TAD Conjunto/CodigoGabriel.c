@@ -24,7 +24,7 @@ void conjunto_destroi(conjunto_t **a){
 }
 
 int conjunto_numero_elementos(conjunto_t *a){
-    if (a != NULL){
+    if (a != NULL && (a -> numero) >= 0){
         int b = (a -> numero);
         return b;
     } return 0; 
@@ -69,8 +69,9 @@ void conjunto_interseccao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
                 if(igual != 0){
                     (c -> vetor[i]) = (b -> vetor[j]);
                     i++;
+                    (c -> numero) = (i + 1);
                 } igual = 0;
-            } (c -> numero) = (i + 1);
+            } 
         }
     }
 }
@@ -117,6 +118,13 @@ int conjunto_insere_elemento(elem_t x, conjunto_t *a){
             (a -> numero) += 1;
             return 1;
         } 
+        if((a -> numero) == (a -> capacidade)){
+            (a -> vetor) = (int *) realloc ((a -> vetor), sizeof(int) * ((a -> capacidade) + 10));
+            (a -> vetor[a -> numero]) = x;
+            (a -> numero) += 1;
+            (a -> capacidade) += 10;
+            return 1;
+        } 
     } return 0;
 }
 
@@ -130,7 +138,12 @@ void conjunto_remove_elemento(elem_t x, conjunto_t *a){
         for(j = 0; j < (a -> numero); j++){
             if( j != ((a -> numero) -1) && a -> vetor[j] == a -> vetor[j - 1] ) a -> vetor[j] = a -> vetor[j + 1];
         }
-        a -> numero -= 1;
+        if((a -> numero) < (a -> capacidade) - 10){
+            (a -> vetor) = (int*) realloc((a -> vetor), (a -> capacidade) - 10);
+            a -> numero -= 1;
+            a -> capacidade -= 10;
+        }
+        
     }
 }
 
@@ -187,6 +200,6 @@ void conjunto_imprime(conjunto_t *a){
                 if(i != ((a -> numero) - 1)) printf("%d ", (a -> vetor[i]));
                 if(i == ((a->numero) - 1)) printf("%d\n", (a -> vetor[i]));
             }
-        }
+        } else printf("\n");
     }
 }
