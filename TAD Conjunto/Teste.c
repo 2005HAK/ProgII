@@ -12,11 +12,11 @@ int main(){
 
 
     //inserção de elementos
-    for(elem_t i = 1000; i < 5000; i++) printf("%i deu certo A? %i\n", i, conjunto_insere_elemento(i, a));
-    for(elem_t i = 1500; i < 3500; i++) printf("%i deu certo B? %i\n", i, conjunto_insere_elemento(i, b));
+    for(elem_t i = 10; i < 50; i++) printf("%i deu certo A? %i\n", i, conjunto_insere_elemento(i, a));
+    for(elem_t i = 15; i < 35; i++) printf("%i deu certo B? %i\n", i, conjunto_insere_elemento(i, b));
     conjunto_diferenca(a, b, c);
     conjunto_interseccao(a, b, d);
-    conjunto_uniao(a, b, e);
+    
 
     //printa quantidade de elementos
     printf("Numero de elementos de A: %i \n", conjunto_numero_elementos(a));
@@ -28,8 +28,8 @@ int main(){
     conjunto_imprime(a);
 
     //Remove elementos
-    for(elem_t i = 2; i < 500; i++) conjunto_remove_elemento(i, a);
-
+    for(elem_t i = 20; i < 28; i++) conjunto_remove_elemento(i, a);
+conjunto_uniao(a, b, e);
     //printa tamanho
     printf("Numero de elementos de A apos retirar 3 elemento: %i \n", conjunto_numero_elementos(a));
 

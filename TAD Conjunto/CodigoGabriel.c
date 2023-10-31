@@ -1,12 +1,11 @@
 #include "conjunto_privado.h"
 #include <stdlib.h>
 #include <stdio.h>
-
 conjunto_t *conjunto_cria(void){
     conjunto_t *cria = (conjunto_t*) malloc (sizeof(conjunto_t));
     if(cria == NULL) return NULL;
     cria -> capacidade = ELEMENTOS;
-    cria -> vetor = (int*) malloc (sizeof(int)*(cria -> capacidade));
+    cria -> vetor = (int*) malloc (sizeof(int)*ELEMENTOS);
     if(cria -> vetor == NULL) return NULL;
     return cria;
 }
@@ -55,7 +54,10 @@ void conjunto_uniao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
                         (c -> vetor[i]) = (b -> vetor[j]);
                         i++;
                     } igual = 0;
-                } c -> numero = i;
+                } (c -> numero) = i;
+            }
+            if((c -> numero) < (c -> capacidade)){
+                (c -> vetor) = (int*) realloc ((c -> vetor), sizeof(int)*(c -> numero));
             }
         }
     }
@@ -76,9 +78,12 @@ void conjunto_interseccao(conjunto_t *a, conjunto_t *b, conjunto_t *c){
                     if(igual != 0){
                         (c -> vetor[i]) = (b -> vetor[j]);
                         i++;
-                        (c -> numero) = (i + 1);
+                        (c -> numero) = i;
                     } igual = 0;
-                } 
+                }
+            }
+            if((c -> numero) < (c -> capacidade)){
+                (c -> vetor) = (int*) realloc ((c -> vetor), sizeof(int)*(c -> numero));
             }
         }
     }
@@ -102,7 +107,10 @@ void conjunto_diferenca(conjunto_t *a, conjunto_t *b, conjunto_t *c){
                         (c -> vetor[i]) = (a -> vetor[j]);
                         i++;
                     } igual = 0;
-                } c -> numero = i;
+                } (c -> numero) = i;
+            }
+            if((c -> numero) < (c -> capacidade) && (c -> numero) > 0){
+                (c -> vetor) = (int*) realloc ((c -> vetor), sizeof(int)*(c -> numero));
             }
         }
     }
@@ -129,7 +137,7 @@ int conjunto_insere_elemento(elem_t x, conjunto_t *a){
             return 1;
         }
         if((a -> numero) == (a -> capacidade)){
-            ( a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * ((a -> capacidade) + 1));
+            ( a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * ((a -> numero) + 1));
             (a -> vetor[(a -> numero)]) = x;
             (a -> numero) += 1;
             (a -> capacidade) += 1;
@@ -141,18 +149,28 @@ int conjunto_insere_elemento(elem_t x, conjunto_t *a){
 void conjunto_remove_elemento(elem_t x, conjunto_t *a){
     if (a != NULL){
         int j;
-        for(j = 0; j < (a -> numero); j++){
-            if( j != ((a -> numero) -1) && a -> vetor[j] == x) a -> vetor[j] = a -> vetor[j + 1];
-            if( j == ((a -> numero) -1) && a -> vetor[j] == x) a -> vetor[j] = a -> vetor[j - 1];
+        if( (a -> numero) > 0){
+            if( (a -> numero) > 1){
+                for(j = 0; j < (a -> numero); j++){
+                    if( j != ((a -> numero) -1) && a -> vetor[j] == x) a -> vetor[j] = a -> vetor[j + 1];
+                    if( j == ((a -> numero) -1) && a -> vetor[j] == x) a -> vetor[j] = a -> vetor[j - 1];
+                }
+                for(j = 0; j < (a -> numero); j++){
+                    if( j != ((a -> numero) -1) && j != 0 && a -> vetor[j] == a -> vetor[j - 1]){
+                         a -> vetor[j] = a -> vetor[j + 1];
+                    }
+                } (a -> numero) -= 1;
+                if((a -> numero) < (a -> capacidade)){
+                    (a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * (a -> numero));
+                    (a -> capacidade) = (a -> numero);
+                }
+            }
+            else if ((a -> numero) == 1){
+                if((a -> vetor[0]) == x){
+                    (a -> numero) = 0;
+                }
+            }
         }
-        for(j = 0; j < (a -> numero); j++){
-            if( j != ((a -> numero) -1) && a -> vetor[j] == a -> vetor[j - 1] ) a -> vetor[j] = a -> vetor[j + 1];
-        }
-        if((a -> numero) < ((a -> capacidade) - 10) && (a -> capacidade) > 10){
-            (a-> vetor) = (int*) realloc ((a -> vetor), sizeof(int) * ((a -> capacidade) - 10));
-            (a -> capacidade) -= 10;
-        }
-        (a -> numero) -= 1;
     }
 }
  
@@ -160,13 +178,13 @@ void conjunto_atribui(conjunto_t *a, conjunto_t *b){
     if (a != NULL && b != NULL){
         int j;
         (b -> numero) = (a -> numero);
-        (b -> capacidade) = (a -> capacidade);
         if((b -> numero) > 0){
             (b -> vetor) = (int*) realloc ((b -> vetor), sizeof(int) * (b -> numero));
-        }
-        if((b -> vetor) != NULL){
-            for(j = 0; j < (a -> numero); j++){
+            (b -> capacidade) = (b -> numero);
+            if((b -> vetor) != NULL){
+                for(j = 0; j < (a -> numero); j++){
                     (b -> vetor[j]) = (a -> vetor[j]);
+                }
             }
         }
     }
