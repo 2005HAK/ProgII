@@ -183,8 +183,8 @@ int			lista_insere_cauda		(lista_t *l, tipo dado);
  * posição zero e o último na posição n-1, onde n é o número de 
  * elementos (tamanho).
  * 
- * @param l A lista na qual o dado deve ser inserido. A lista deve estar pro-
- * priamente inicializada.
+ * @param l A lista na qual o dado deve ser inserido. A lista deve estar propriamente 
+ * inicializada.
  * @param dado O dado que deve ser inserido na lista.
  * @param pos A posição na qual o dado deve ser inserido. Posições válidas 
  * para inserção são: 0 <= pos <= tamanho
@@ -359,7 +359,6 @@ int 		lista_compara(lista_t *l1, lista_t *l2);
  * @return Retorna 1 caso seja possível fazer a reversão. Caso l seja 
  * inválida retorna -1.
  */
-
 int 		lista_reverte(lista_t *l);
 
 /**
@@ -372,7 +371,15 @@ int 		lista_reverte(lista_t *l);
  * @return Uma nova lista, que é uma cópia de l. Retorna NULL caso não seja 
  * possível fazer a cópia.
  */
-
 lista_t*	lista_cria_copia(lista_t *l);
+
+/**
+ * @brief Imprime a lista l
+ * @details Imprime os elementos de lista l com espaço entre cada elemento
+ * 
+ * @param l Lista a ser impressa
+ * @return Não possui retorno
+*/
+void lista_imprime(lista_t *l);
 
 #endif

@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "math.h": "c"
+        "math.h": "c",
+        "conjunto_privado.h": "c"
     },
     "cSpell.words": [
         "além",
@@ -57,6 +58,8 @@
         "minimo",
         "modificações",
         "neste",
+        "ocorrencia",
+        "ocorrencias",
         "ordenada",
         "ordenado",
         "partir",
