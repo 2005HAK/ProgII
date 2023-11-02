@@ -109,6 +109,7 @@ int lista_insere_cabeca(lista_t *l, tipo dado){
             novoNo->info = dado;
             novoNo->prx = l->cabeca;
             novoNo->ant = NULL;
+            if(l->cabeca != NULL) l->cabeca->ant = novoNo;
             l->cabeca = novoNo;
             l->tamanho++;
             if(l->tamanho == 1) l->cauda = novoNo;
@@ -118,23 +119,103 @@ int lista_insere_cabeca(lista_t *l, tipo dado){
 }
 
 int lista_insere_cauda(lista_t *l, tipo dado){
-
+    if(lista_inicializada(l) == 1){
+        no_t *novoNo = (no_t*) malloc(sizeof(no_t));
+        if(novoNo != NULL){
+            novoNo->info = dado;
+            novoNo->prx = NULL;
+            novoNo->ant = l->cauda;
+            if(l->cauda != NULL) l->cauda->prx = novoNo;
+            l->cauda = novoNo;
+            l->tamanho++;
+            if(l->tamanho == 1) l->cabeca = novoNo;
+            return 1;
+        }
+    } return -1;
 }
 
 int lista_insere_posicao(lista_t *l, tipo dado, int pos){
-
+    if (lista_inicializada(l) == 1){ 
+        if(pos >= 0 && pos <= l->tamanho){
+            if(pos == 0) return lista_insere_cabeca(l, dado);
+            else if (pos == l->tamanho) return lista_insere_cauda(l, dado);
+            else{
+                no_t *novoNo = (no_t *)malloc(sizeof(no_t));
+                if (novoNo != NULL){
+                    int i;
+                    no_t *atual = l->cabeca;
+                    for (i = 0; i < l->tamanho; i++){
+                        if (pos == i) break;
+                        atual = atual->prx;
+                    }
+                    novoNo->prx = atual;
+                    novoNo->ant = atual->ant;
+                    atual->ant->prx = novoNo;
+                    atual->ant = novoNo;
+                    novoNo->info = dado;
+                    l->tamanho++;
+                    
+                } else return -1;
+            } return 1;
+        } return 0;
+    } return -1;
 }
 
 int lista_remove_cabeca(lista_t *l, tipo *dado){
-
+    if (dado != NULL && lista_inicializada(l) == 1){ 
+        if(l->tamanho != 0){
+            no_t *cabecaAntiga = l->cabeca;
+            *dado = cabecaAntiga->info;
+            l->cabeca = l->cabeca->prx;
+            l->cabeca->ant = NULL;
+            cabecaAntiga->prx = NULL;
+            free(cabecaAntiga);
+            cabecaAntiga = NULL;
+            l->tamanho--;
+            return 1;
+        } return 0;
+    } return -1;
 }
 
 int lista_remove_cauda(lista_t *l, tipo *dado){
-
+    if (dado != NULL && lista_inicializada(l) == 1){ 
+        if(l->tamanho != 0){
+            no_t *caudaAntiga = l->cauda;
+            *dado = caudaAntiga->info;
+            l->cauda = l->cauda->ant;
+            l->cauda->prx = NULL;
+            caudaAntiga->ant = NULL;
+            free(caudaAntiga);
+            caudaAntiga = NULL;
+            l->tamanho--;
+            return 1;
+        } return 0;
+    } return -1;
 }
 
 int lista_remove_posicao(lista_t *l, tipo *dado, int pos){
-
+    if (dado != NULL && lista_inicializada(l) == 1){ 
+        if(l->tamanho != 0 && pos >=0 && pos < l->tamanho){
+            if (pos == 0) lista_remove_cabeca(l, dado);
+            else if (pos == l->tamanho - 1) lista_remove_cauda(l, dado);
+            else {
+                int i;
+                no_t *atual = l->cabeca;
+                for (i = 0; i < l->tamanho; i++){
+                    if (pos == i) break;
+                    atual = atual->prx;
+                }
+                *dado = atual->info;
+                atual->ant->prx = atual->prx;
+                atual->prx->ant = atual->ant;
+                atual->prx = NULL;
+                atual->ant = NULL;
+                free(atual);
+                atual = NULL;
+                l->tamanho--;
+            } return 1;
+        } return 0;
+    } return -1;
 }
 
 int lista_remove_primeira(lista_t *l, tipo dado){
@@ -171,4 +252,16 @@ int lista_reverte(lista_t *l){
 
 lista_t *lista_cria_copia(lista_t *l){
 
+}
+
+void lista_imprime(lista_t *l){
+    if (lista_inicializada(l) == 1){ 
+        int i;
+        no_t *no = l->cabeca;
+        for(i = 0; i < l->tamanho; i++){
+            printf("%i ", no->info);
+            no = no->prx;
+        }
+        printf("\n");
+    }
 }

@@ -339,4 +339,13 @@ int lista_reverte(lista_t *l);
  */
 lista_t *lista_cria_copia(lista_t *l);
 
+/**
+ * @brief Imprime a lista l
+ * @details Imprime os elementos de lista l com espaço entre cada elemento
+ * 
+ * @param l Lista a ser impressa
+ * @return Não possui retorno
+*/
+void lista_imprime(lista_t *l);
+
 #endif
