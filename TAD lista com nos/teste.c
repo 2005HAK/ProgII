@@ -12,19 +12,19 @@ int main(){
     for(i = 30; i < 61; i++) lista_insere_cabeca(b, i);
     for(i = 90; i < 111; i++) lista_insere_cabeca(c, i);
 
-    printf("=== Listas inicializadas? ========================================\n\n");
+    printf("=== Listas inicializadas? ===========================================================================\n\n");
     printf("A: %i\n", lista_inicializada(a));
     printf("B: %i\n", lista_inicializada(b));
     printf("C: %i\n", lista_inicializada(c));
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
-    printf("=== Tamanho das listas ===========================================\n\n");
+    printf("=== Tamanho das listas ==============================================================================\n\n");
     printf("De A: %i\n", lista_tamanho(a));
     printf("De B: %i\n", lista_tamanho(b));
     printf("De C: %i\n", lista_tamanho(c));
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
-    printf("=== Informacao na cabeca =========================================\n\n");
+    printf("=== Informacao na cabeca ============================================================================\n\n");
     
     lista_info_cabeca(a, &dadoA);
     lista_info_cabeca(b, &dadoB);
@@ -33,9 +33,9 @@ int main(){
     printf("De A: %i\n", dadoA);
     printf("De B: %i\n", dadoB);
     printf("De C: %i\n", dadoC);
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
-    printf("=== Informacao na cauda ==========================================\n\n");
+    printf("=== Informacao na cauda =============================================================================\n\n");
     lista_info_cauda(a, &dadoA);
     lista_info_cauda(b, &dadoB);
     lista_info_cauda(c, &dadoC);
@@ -43,44 +43,79 @@ int main(){
     printf("De A: %i\n", dadoA);
     printf("De B: %i\n", dadoB);
     printf("De C: %i\n", dadoC);
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
-    printf("=== Imprime as listas ============================================\n\n");
+    printf("=== Imprime as listas ===============================================================================\n\n");
     printf("A: ");
     lista_imprime(a);
     printf("B: ");
     lista_imprime(b);
     printf("C: ");
     lista_imprime(c);
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
     lista_remove_cabeca(a, &dadoA);
     lista_remove_cabeca(b, &dadoB);
     lista_remove_cabeca(c, &dadoC);
 
-    printf("=== Imprime as listas apos remove cabeca ==========================\n\n");
+    printf("=== Dado removido da cabeca =========================================================================\n\n");
+    printf("De A: %i\n", dadoA);
+    printf("De B: %i\n", dadoB);
+    printf("De C: %i\n", dadoC);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    printf("=== Imprime as listas apos remove cabeca ============================================================\n\n");
     printf("A: ");
     lista_imprime(a);
     printf("B: ");
     lista_imprime(b);
     printf("C: ");
     lista_imprime(c);
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
     lista_remove_cauda(a, &dadoA);
     lista_remove_cauda(b, &dadoB);
     lista_remove_cauda(c, &dadoC);
 
-    printf("=== Imprime as listas apos remove cauda ==========================\n\n");
+    printf("=== Dado removido da cauda ==========================================================================\n\n");
+    printf("De A: %i\n", dadoA);
+    printf("De B: %i\n", dadoB);
+    printf("De C: %i\n", dadoC);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    printf("=== Imprime as listas apos remove cauda =============================================================\n\n");
     printf("A: ");
     lista_imprime(a);
     printf("B: ");
     lista_imprime(b);
     printf("C: ");
     lista_imprime(c);
-    printf("------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
 
+    lista_remove_posicao(a, &dadoA, 8);
+    lista_remove_posicao(b, &dadoB, 9);
+    lista_remove_posicao(c, &dadoC, 15);
+
+    printf("=== Dado removido ===================================================================================\n\n");
+    printf("Da posicao 8 de A: %i\n", dadoA);
+    printf("Da posicao 9 de B: %i\n", dadoB);
+    printf("Da posicao 15 de C: %i\n", dadoC);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    printf("=== Imprime as listas apos remove as posicoes =======================================================\n\n");
+    printf("A: ");
+    lista_imprime(a);
+    printf("B: ");
+    lista_imprime(b);
+    printf("C: ");
+    lista_imprime(c);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    printf("=== Destruindo listas ===============================================================================\n\n...........\n...........\n...........\n");
     lista_destroi(&a);
     lista_destroi(&b);
     lista_destroi(&c);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    //retornos não testados ainda
 }
