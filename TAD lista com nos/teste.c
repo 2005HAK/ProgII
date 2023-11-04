@@ -176,6 +176,8 @@ int main(){
     lista_destroi(&a);
     lista_destroi(&b);
     lista_destroi(&c);
+    lista_destroi(&d);
+    lista_destroi(&e);
     printf("-----------------------------------------------------------------------------------------------------\n");
 
     //retornos não testados ainda
