@@ -154,7 +154,6 @@ int lista_insere_posicao(lista_t *l, tipo dado, int pos){
                     atual->ant = novoNo;
                     novoNo->info = dado;
                     l->tamanho++;
-                    
                 } else return -1;
             } return 1;
         } return 0;
@@ -219,39 +218,143 @@ int lista_remove_posicao(lista_t *l, tipo *dado, int pos){
 }
 
 int lista_remove_primeira(lista_t *l, tipo dado){
-
+    if(lista_inicializada(l) == 1){
+        if(l->tamanho != 0){
+            int i;
+            no_t *atual = l->cabeca;
+            for (i = 0; i < l->tamanho; i++){
+                if (atual->info == dado){
+                    int dado;
+                    lista_remove_posicao(l, &dado, i);
+                    return i;
+                }
+                atual = atual->prx;
+            }
+        } return -2;
+    } return -1;
 }
 
 int lista_remove_todas(lista_t *l, tipo dado){
-
+    if(lista_inicializada(l) == 1){
+        int retorno = lista_remove_primeira(l, dado), quantidadeRemocoes = 0;
+        while(retorno != -2){
+            quantidadeRemocoes++;
+            retorno = lista_remove_primeira(l, dado);
+        }
+        return quantidadeRemocoes;
+    } return -1;
 }
 
 int lista_busca_info(lista_t *l, tipo dado){
-
+    if(lista_inicializada(l) == 1){
+        if(l->tamanho != 0){
+            int i;
+            no_t *atual = l->cabeca;
+            for (i = 0; i < l->tamanho; i++){
+                if (atual->info == dado){
+                    return i;
+                }
+                atual = atual->prx;
+            }
+        }
+    } return -1;
 }
 
 int lista_frequencia_info(lista_t *l, tipo dado){
-
+    if(lista_inicializada(l) == 1){
+        int freq = 0;
+        if(l->tamanho != 0){
+            int i;
+            no_t *atual = l->cabeca;
+            for (i = 0; i < l->tamanho; i++){
+                if (atual->info == dado){
+                    freq++;
+                }
+                atual = atual->prx;
+            }
+        } return freq;
+    } return -1;
 }
 
 int lista_ordenada(lista_t *l){
-
+    if (lista_inicializada(l) == 1){
+        if(l->tamanho != 0){
+            int i;
+            no_t *atual = (l->cabeca);
+            for (i = 0; i < (l->tamanho - 1); i++){
+                if(atual->info > atual->prx->info) return 0;
+                atual = atual->prx;
+            }
+        } return 1;
+    } return -1;
 }
 
 int lista_insere_ordenado(lista_t *l, tipo dado){
-
+    if (lista_inicializada(l) == 1){
+        if(l->tamanho != 0){
+            int i;
+            no_t *atual = (l->cabeca);
+            for (i = 0; i < l->tamanho; i++){
+                if(dado < atual->info){
+                    lista_insere_posicao(l, dado, i);
+                    break;
+                } else if (i == (l->tamanho - 1)){
+                    lista_insere_posicao(l, dado, l->tamanho);
+                    break;
+                } 
+                atual = atual->prx;
+            }
+        } else lista_insere_cabeca(l, dado);
+        return 1;
+    } return -1;
 }
 
 int lista_compara(lista_t *l1, lista_t *l2){
-
+    if(lista_inicializada(l1) == 1 && lista_inicializada(l2) == 1){
+        if(l1->tamanho == l2->tamanho){
+            int i;
+            no_t *atual1 = (l1->cabeca);
+            no_t *atual2 = (l2->cabeca);
+            for (i = 0; i < l1->tamanho; i++){
+                if(atual1->info != atual2->info) return 0;
+                atual1 = atual1->prx;
+                atual2 = atual2->prx;
+            }
+            return 1;
+        } return 0;
+    } else if (lista_inicializada(l1) == 0 && lista_inicializada(l2) == 0) return 1;
+    return 0;
 }
 
 int lista_reverte(lista_t *l){
-
+    if (lista_inicializada(l) == 1){
+        int i;
+        no_t *atual = l->cabeca;
+        l->cabeca = l->cauda;
+        l->cauda = atual;
+        for(i = 0; i < l->tamanho; i++){
+            no_t *ant = atual->ant;
+            atual->ant = atual->prx;
+            atual->prx = ant;
+            atual = atual->ant;
+        }
+        return 1;
+    } return -1;
 }
 
 lista_t *lista_cria_copia(lista_t *l){
-
+    if(lista_inicializada(l) == 1){
+        lista_t *copiaLista = lista_cria();
+        if(copiaLista != NULL){
+            int i;
+            no_t *atual = l->cabeca;
+            for(i = 0; i < l->tamanho; i++){
+                lista_insere_cauda(copiaLista, atual->info);
+                atual = atual->prx;
+            }
+            return copiaLista;
+        }
+    } return NULL; 
 }
 
 void lista_imprime(lista_t *l){

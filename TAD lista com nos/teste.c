@@ -7,10 +7,16 @@ int main(){
     lista_t *a = lista_cria();
     lista_t *b = lista_cria();
     lista_t *c = lista_cria();
+    lista_t *d = lista_cria();
 
     for(i = 0; i < 11; i++) lista_insere_cabeca(a, i);
+    lista_insere_cabeca(a, 5);
+    lista_insere_cabeca(a, 5);
+    lista_insere_cauda(a, 5);
+    lista_insere_cauda(a, 5);
     for(i = 30; i < 61; i++) lista_insere_cabeca(b, i);
     for(i = 90; i < 111; i++) lista_insere_cabeca(c, i);
+    for(i = 200; i < 250; i++) lista_insere_cauda(d, i);
 
     printf("=== Listas inicializadas? ===========================================================================\n\n");
     printf("A: %i\n", lista_inicializada(a));
@@ -109,6 +115,52 @@ int main(){
     lista_imprime(b);
     printf("C: ");
     lista_imprime(c);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+    
+    printf("=== Ocorrencias do numero ===========================================================================\n\n");
+    printf("5 em A: %i\n", lista_frequencia_info(a, 5));
+    printf("37 em B: %i\n", lista_frequencia_info(b, 37));
+    printf("70 em C: %i\n", lista_frequencia_info(c, 70));
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    printf("=== Ordenado? =======================================================================================\n\n");
+    printf("A: %i\n", lista_ordenada(a));
+    printf("B: %i\n", lista_ordenada(b));
+    printf("C: %i\n", lista_ordenada(c));
+    printf("D: %i\n", lista_ordenada(d));
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    lista_insere_ordenado(a, 12);
+    lista_insere_ordenado(a, 9);
+    lista_insere_ordenado(b, 29);
+    lista_insere_ordenado(c, 49);
+    lista_insere_ordenado(d, 109);
+
+    printf("=== Imprime as listas apos inserir nas posicoes =======================================================\n\n");
+    printf("A: ");
+    lista_imprime(a);
+    printf("B: ");
+    lista_imprime(b);
+    printf("C: ");
+    lista_imprime(c);
+    printf("D: ");
+    lista_imprime(d);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    lista_reverte(a);
+    lista_reverte(b);
+    lista_reverte(c);
+    lista_reverte(d);
+
+    printf("=== Imprime as listas apos reverte-las ==============================================================\n\n");
+    printf("A: ");
+    lista_imprime(a);
+    printf("B: ");
+    lista_imprime(b);
+    printf("C: ");
+    lista_imprime(c);
+    printf("D: ");
+    lista_imprime(d);
     printf("-----------------------------------------------------------------------------------------------------\n");
 
     printf("=== Destruindo listas ===============================================================================\n\n...........\n...........\n...........\n");
