@@ -52,15 +52,16 @@ void lista_destroi(lista_t **l){
             (*l)->cabeca = NULL;
             (*l)->cauda = NULL;
             free(*l);
-            *l = NULL;
         }
         l = NULL;
     }
 }
 
 int lista_inicializada(lista_t *l){
-    if(l != NULL) if(l->tamanho >= 0) return 1;
-    return 0;
+    if(l != NULL){
+        if(l->tamanho >= 0) return 1;
+        lista_destroi(&l);
+    } return 0;
 }
 
 int lista_tamanho(lista_t *l){
