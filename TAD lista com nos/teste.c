@@ -17,6 +17,7 @@ int main(){
     for(i = 30; i < 61; i++) lista_insere_cabeca(b, i);
     for(i = 90; i < 111; i++) lista_insere_cabeca(c, i);
     for(i = 200; i < 250; i++) lista_insere_cauda(d, i);
+    lista_insere_posicao(a, 2, 15);
 
     printf("=== Listas inicializadas? ===========================================================================\n\n");
     printf("A: %i\n", lista_inicializada(a));
@@ -114,6 +115,19 @@ int main(){
     printf("B: ");
     lista_imprime(b);
     printf("C: ");
+    lista_imprime(c);
+    printf("-----------------------------------------------------------------------------------------------------\n");
+
+    lista_remove_primeira(a, 10);
+    lista_remove_primeira(b, 57);
+    lista_remove_primeira(c, 104);
+
+    printf("=== Imprime as listas apos remove a primeira ocorrencia =============================================\n\n");
+    printf("De 10 em A: ");
+    lista_imprime(a);
+    printf("De 57 em B: ");
+    lista_imprime(b);
+    printf("De 104 em C: ");
     lista_imprime(c);
     printf("-----------------------------------------------------------------------------------------------------\n");
     

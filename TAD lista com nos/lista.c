@@ -162,15 +162,18 @@ int lista_insere_posicao(lista_t *l, tipo dado, int pos){
 int lista_remove_cabeca(lista_t *l, tipo *dado){
     if (dado != NULL && lista_inicializada(l) == 1){ 
         if(l->tamanho != 0){
-            no_t *cabecaAntiga = l->cabeca;
-            *dado = cabecaAntiga->info;
-            l->cabeca = l->cabeca->prx;
-            l->cabeca->ant = NULL;
-            cabecaAntiga->prx = NULL;
-            free(cabecaAntiga);
-            cabecaAntiga = NULL;
-            l->tamanho--;
-            return 1;
+            if(l->cabeca != NULL){
+                no_t *cabecaNova = l->cabeca->prx;
+                *dado = l->cabeca->info;
+                l->cabeca->prx = NULL;
+                free(l->cabeca);
+                l->cabeca = cabecaNova;
+                if(l->cabeca != NULL) l->cabeca->ant = NULL;
+                else l->cauda = NULL;
+                cabecaNova = NULL;
+                l->tamanho--;
+                return 1;
+            } else return -1;
         } return 0;
     } return -1;
 }
@@ -178,15 +181,18 @@ int lista_remove_cabeca(lista_t *l, tipo *dado){
 int lista_remove_cauda(lista_t *l, tipo *dado){
     if (dado != NULL && lista_inicializada(l) == 1){ 
         if(l->tamanho != 0){
-            no_t *caudaAntiga = l->cauda;
-            *dado = caudaAntiga->info;
-            l->cauda = l->cauda->ant;
-            l->cauda->prx = NULL;
-            caudaAntiga->ant = NULL;
-            free(caudaAntiga);
-            caudaAntiga = NULL;
-            l->tamanho--;
-            return 1;
+            if(l->cauda != NULL){
+                no_t *caudaNova = l->cauda->ant;
+                *dado = l->cauda->info;
+                l->cauda->ant = NULL;
+                free(l->cauda);
+                l->cauda = caudaNova;
+                if(l->cauda != NULL) l->cauda->prx = NULL;
+                else l->cabeca = NULL;
+                caudaNova = NULL;
+                l->tamanho--;
+                return 1;
+            } else return -1;
         } return 0;
     } return -1;
 }
@@ -203,14 +209,16 @@ int lista_remove_posicao(lista_t *l, tipo *dado, int pos){
                     if (pos == i) break;
                     atual = atual->prx;
                 }
-                *dado = atual->info;
-                atual->ant->prx = atual->prx;
-                atual->prx->ant = atual->ant;
-                atual->prx = NULL;
-                atual->ant = NULL;
-                free(atual);
-                atual = NULL;
-                l->tamanho--;
+                if(atual != NULL){
+                    *dado = atual->info;
+                    if(atual->ant != NULL) atual->ant->prx = atual->prx;
+                    if(atual->prx != NULL) atual->prx->ant = atual->ant;
+                    atual->prx = NULL;
+                    atual->ant = NULL;
+                    free(atual);
+                    atual = NULL;
+                    l->tamanho--;
+                } else return -1;
             } return 1;
         } return 0;
     } return -1;
@@ -279,7 +287,7 @@ int lista_ordenada(lista_t *l){
     if (lista_inicializada(l) == 1){
         if(l->tamanho != 0){
             int i;
-            no_t *atual = (l->cabeca);
+            no_t *atual = l->cabeca;
             for (i = 0; i < (l->tamanho - 1); i++){
                 if(atual->info > atual->prx->info) return 0;
                 atual = atual->prx;
@@ -327,15 +335,17 @@ int lista_compara(lista_t *l1, lista_t *l2){
 
 int lista_reverte(lista_t *l){
     if (lista_inicializada(l) == 1){
-        int i;
-        no_t *atual = l->cabeca;
-        l->cabeca = l->cauda;
-        l->cauda = atual;
-        for(i = 0; i < l->tamanho; i++){
-            no_t *ant = atual->ant;
-            atual->ant = atual->prx;
-            atual->prx = ant;
-            atual = atual->ant;
+        if(l->tamanho > 1){
+            int i;
+            no_t *atual = l->cabeca;
+            l->cabeca = l->cauda;
+            l->cauda = atual;
+            for (i = 0; i < l->tamanho; i++){
+                no_t *ant = atual->ant;
+                atual->ant = atual->prx;
+                atual->prx = ant;
+                atual = atual->ant;
+            }
         }
         return 1;
     } return -1;
