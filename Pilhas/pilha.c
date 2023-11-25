@@ -395,12 +395,13 @@ void moveAAboveB (lista_t **c, int a, int b, int tam){
     for(i = 0; i < tam; i ++){
         pos = lista_busca_info(c[i], a);
         if(pos != -1){
-            int posCauda;
-            while(c[i]->tamanho > pos){
-                if(c[i]->cauda != NULL){
-                    break;
-                }
+            int tamanho = c[i]->tamanho;
+            while(tamanho > pos + 1){
+                lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
+                lista_remove_cauda(c[i], &valor);
+                tamanho--;
             }
+            lista_remove_cauda(c[i], &valor);
             lista_insere_cauda(c[listaB], a);
             break;
         }
