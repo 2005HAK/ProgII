@@ -268,4 +268,5 @@ void exitContainers (lista_t **c, int tam){
         lista_imprime(c[i]);
         lista_destroi(&c[i]);
     }
+    free(c);
 }
