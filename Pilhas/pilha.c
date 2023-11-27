@@ -133,131 +133,201 @@ void lista_imprime(lista_t *l){
 }
 
 void moveAAboveB (lista_t **c, int a, int b, int tam){
-    int pos = 0, listaB = 0, valor = 0, i;
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], b);
-        if(pos != -1){
-            listaB = i;
-            while(c[i]->tamanho - 1 > pos){
-                lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
-                lista_remove_cauda(c[i], &valor);
+    int pos = 0, listaB = 0, valor = 0, i, pilhaA = 0, pilhaB = 0;
+    if(a != b){
+        for(i = 0; i < tam; i++){
+            if(lista_busca_info(c[i], a) != -1) pilhaA = i;
+            if(lista_busca_info(c[i], b) != -1) pilhaB = i;
+        }
+        
+        if(pilhaA != pilhaB){
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], b);
+                if (pos != -1)
+                {
+                    listaB = i;
+                    while (c[i]->tamanho - 1 > pos)
+                    {
+                        lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
+                        lista_remove_cauda(c[i], &valor);
+                    }
+                    break;
+                }
             }
-            break;
-        }  
-    }
 
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], a);
-        if(pos != -1){
-            int tamanho = c[i]->tamanho;
-            while(tamanho > pos + 1){
-                lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
-                lista_remove_cauda(c[i], &valor);
-                tamanho--;
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], a);
+                if (pos != -1)
+                {
+                    int tamanho = c[i]->tamanho;
+                    while (tamanho > pos + 1)
+                    {
+                        lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
+                        lista_remove_cauda(c[i], &valor);
+                        tamanho--;
+                    }
+                    lista_remove_cauda(c[i], &valor);
+                    lista_insere_cauda(c[listaB], a);
+                    break;
+                }
             }
-            lista_remove_cauda(c[i], &valor);
-            lista_insere_cauda(c[listaB], a);
-            break;
         }
     }
-
 }
 
 void moveAUpB (lista_t **c, int a, int b, int tam){
-    int valor = 0, i, pos = 0, listaB = 0, tamanho;
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], b);
-        if(pos != -1){
-            listaB = i;
-            break;
-        }  
-    }
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], a);
-        if(pos != -1){
-            tamanho = c[i]->tamanho;
-            while(tamanho > pos + 1){
-                lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
-                lista_remove_cauda(c[i], &valor);
-                tamanho--;
-            }
-            lista_remove_cauda(c[i], &valor);
-            lista_insere_cauda(c[listaB], a);
-            break;
+    int valor = 0, i, pos = 0, listaB = 0, tamanho, pilhaA = 0, pilhaB = 0;
+    if(a != b){
+        for(i = 0; i < tam; i++){
+            if(lista_busca_info(c[i], a) != -1) pilhaA = i;
+            if(lista_busca_info(c[i], b) != -1) pilhaB = i;
         }
+        
+        if(pilhaA != pilhaB){
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], b);
+                if (pos != -1)
+                {
+                    listaB = i;
+                    break;
+                }
+            }
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], a);
+                if (pos != -1)
+                {
+                    tamanho = c[i]->tamanho;
+                    while (tamanho > pos + 1)
+                    {
+                        lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
+                        lista_remove_cauda(c[i], &valor);
+                        tamanho--;
+                    }
+                    lista_remove_cauda(c[i], &valor);
+                    lista_insere_cauda(c[listaB], a);
+                    break;
+                }
+            }
+        }
+        
     }
 }
 
 void stackingAAboveB (lista_t **c, int a, int b, int tam){
-    int pos = 0, listaB = 0, valor = 0, i, tamanho, j;
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], b);
-        if(pos != -1){
-            listaB = i;
-            while(c[i]->tamanho - 1 > pos){
-                lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
-                lista_remove_cauda(c[i], &valor);
-            }
-            break;
-        }  
-    }
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], a);
-        if(pos != -1){
-            no_t *atual = c[i]->cabeca;
-            for (j = 0; j < (c[i]->tamanho - 1); j++){
-                if (atual->info == a){
+    int pos = 0, listaB = 0, valor = 0, i, tamanho, j, pilhaA = 0, pilhaB = 0;
+    if(a != b){
+        for(i = 0; i < tam; i++){
+            if(lista_busca_info(c[i], a) != -1) pilhaA = i;
+            if(lista_busca_info(c[i], b) != -1) pilhaB = i;
+        }
+        
+        if(pilhaA != pilhaB){
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], b);
+                if (pos != -1)
+                {
+                    listaB = i;
+                    while (c[i]->tamanho - 1 > pos)
+                    {
+                        lista_insere_cauda(c[c[i]->cauda->info], c[i]->cauda->info);
+                        lista_remove_cauda(c[i], &valor);
+                    }
                     break;
                 }
-                atual = atual->prx;
             }
-            tamanho = c[i]->tamanho - pos; 
-            no_t *cauda = c[i]->cauda;
-            if(atual->ant != NULL) atual->ant->prx = NULL;
-            c[i]->cauda = atual->ant;
-            c[i]->tamanho = pos;
-            if(c[i]->tamanho == 0) c[i]->cabeca = NULL;
-            atual->ant = c[listaB]->cauda;
-            if(c[listaB]->cauda != NULL) c[listaB]->cauda->prx = atual;
-            c[listaB]->cauda = cauda;
-            c[listaB]->tamanho += tamanho;
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], a);
+                if (pos != -1)
+                {
+                    if (i != listaB)
+                    {
+                        no_t *atual = c[i]->cabeca;
+                        for (j = 0; j < (c[i]->tamanho - 1); j++)
+                        {
+                            if (atual->info == a)
+                            {
+                                break;
+                            }
+                            atual = atual->prx;
+                        }
+                        tamanho = c[i]->tamanho - pos;
+                        no_t *cauda = c[i]->cauda;
+                        if (atual->ant != NULL)
+                            atual->ant->prx = NULL;
+                        c[i]->cauda = atual->ant;
+                        c[i]->tamanho = pos;
+                        if (c[i]->tamanho == 0)
+                            c[i]->cabeca = NULL;
+                        atual->ant = c[listaB]->cauda;
+                        if (c[listaB]->cauda != NULL)
+                            c[listaB]->cauda->prx = atual;
+                        c[listaB]->cauda = cauda;
+                        c[listaB]->tamanho += tamanho;
+                    }
+                }
+            }
         }
     }
 }
 
 void stackingAUpB (lista_t **c, int a, int b, int tam){
-    int pos = 0, listaB = 0, valor = 0, i, tamanho, j;
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], b);
-        if(pos != -1){
-            listaB = i;
-            break;
-        }  
-    }
-    for(i = 0; i < tam; i ++){
-        pos = lista_busca_info(c[i], a);
-        if(pos != -1){
-            if(i != listaB){
-                no_t *atual = c[i]->cabeca;
-                for (j = 0; j < (c[i]->tamanho - 1); j++){
-                    if (atual->info == a){
-                        break;
-                    }
-                    atual = atual->prx;
-                }
-                tamanho = c[i]->tamanho - pos;
-                no_t *cauda = c[i]->cauda;
-                if (atual->ant != NULL) atual->ant->prx = NULL;
-                c[i]->cauda = atual->ant;
-                c[i]->tamanho = pos;
-                if (c[i]->tamanho == 0) c[i]->cabeca = NULL;
-                atual->ant = c[listaB]->cauda;
-                if (c[listaB]->cauda != NULL) c[listaB]->cauda->prx = atual;
-                c[listaB]->cauda = cauda;
-                c[listaB]->tamanho += tamanho;
-            }
-            
+    int pos = 0, listaB = 0, valor = 0, i, tamanho, j, pilhaA = 0, pilhaB = 0;
+    if(a != b){
+        for(i = 0; i < tam; i++){
+            if(lista_busca_info(c[i], a) != -1) pilhaA = i;
+            if(lista_busca_info(c[i], b) != -1) pilhaB = i;
         }
+        
+        if(pilhaA != pilhaB){
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], b);
+                if (pos != -1)
+                {
+                    listaB = i;
+                    break;
+                }
+            }
+            for (i = 0; i < tam; i++)
+            {
+                pos = lista_busca_info(c[i], a);
+                if (pos != -1)
+                {
+                    if (i != listaB)
+                    {
+                        no_t *atual = c[i]->cabeca;
+                        for (j = 0; j < (c[i]->tamanho - 1); j++)
+                        {
+                            if (atual->info == a)
+                            {
+                                break;
+                            }
+                            atual = atual->prx;
+                        }
+                        tamanho = c[i]->tamanho - pos;
+                        no_t *cauda = c[i]->cauda;
+                        if (atual->ant != NULL)
+                            atual->ant->prx = NULL;
+                        c[i]->cauda = atual->ant;
+                        c[i]->tamanho = pos;
+                        if (c[i]->tamanho == 0)
+                            c[i]->cabeca = NULL;
+                        atual->ant = c[listaB]->cauda;
+                        if (c[listaB]->cauda != NULL)
+                            c[listaB]->cauda->prx = atual;
+                        c[listaB]->cauda = cauda;
+                        c[listaB]->tamanho += tamanho;
+                    }
+                }
+            }
+        }
+        
     }
 }
 
@@ -269,4 +339,5 @@ void exitContainers (lista_t **c, int tam){
         lista_destroi(&c[i]);
     }
     free(c);
+    c = NULL;
 }

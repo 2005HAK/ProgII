@@ -1,5 +1,5 @@
-#include "pilha.c"
-#include "string.h"
+#include "pilha.h"
+#include <string.h>
 
 int main(){
     int i, tam = 0;
