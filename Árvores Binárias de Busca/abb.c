@@ -1,15 +1,20 @@
 #include "abb_privado.h"
+#include "abb.h"
 
 /* Coloque abaixo as suas implementações */
 abb_t *abb_cria(){
     abb_t *arvore = (abb_t*) malloc(sizeof(abb_t));
+    arvore->raiz = NULL;
     return arvore;
 }
 
 void abb_destroi(abb_t **arv){
     if(arv != NULL){
-        abb_destroi_rec((*arv)->raiz);
-        *arv = NULL;
+        if(*arv != NULL){
+            abb_destroi_rec((*arv)->raiz);
+            free((*arv));
+            *arv = NULL;
+        }
         arv = NULL;
     }
 }
@@ -52,22 +57,25 @@ int abb_remove(abb_t *arv, elem_t chave){
                     if (chave > no->chave) no = no->dir;
                     else no = no->esq;
                 }
-                if(ant == NULL){
-                    free(no);
+                if (no == arv->raiz && no->dir == NULL && no->esq == NULL){
                     arv->raiz = NULL;
-                } else {
-                    if(no->dir == NULL && no->esq == NULL){
-                        if(no->chave > ant->chave) ant->dir = NULL;
-                        else ant->esq = NULL;
-                    }else if(no->dir != NULL && no->esq == NULL){
-                        if(no->chave > ant->chave) ant->dir = no->dir;
-                        else ant->esq = no->dir;
-                    }else if(no->dir == NULL && no->esq != NULL){
-                        if(no->chave > ant->chave) ant->dir = no->esq;
-                        else ant->esq = no->esq;
-                    }
                     free(no);
-                } return 1;
+                } else if (no->dir == NULL && no->esq == NULL){
+                    if (no->chave > ant->chave) ant->dir = NULL;
+                    else ant->esq = NULL;
+                    free(no);
+                } else if (no->dir != NULL && no->esq == NULL){
+                    if (no->chave > ant->chave) ant->dir = no->dir;
+                    else ant->esq = no->dir;
+                    free(no);
+                } else if (no->dir == NULL && no->esq != NULL){
+                    if (no->chave > ant->chave) ant->dir = no->esq;
+                    else ant->esq = no->esq;
+                    free(no);
+                } else if (no->dir != NULL && no->esq != NULL){
+
+                }
+                return 1;
             }
         } return 0;
     } return -1;
