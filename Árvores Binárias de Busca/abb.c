@@ -1,5 +1,4 @@
 #include "abb_privado.h"
-#include "abb_privado.c"
 #include "abb.h"
 
 /* Coloque abaixo as suas implementações */
