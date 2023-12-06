@@ -73,6 +73,12 @@ int abb_remove(abb_t *arv, elem_t chave){
                     else ant->esq = no->esq;
                     free(no);
                 } else if (no->dir != NULL && no->esq != NULL){
+                    no_t *noAnt = no;
+                    no_t *antIme;
+                    while (noAnt->esq != NULL){
+                        noAnt = noAnt->esq;
+                        noAnt = no->esq;
+                    }
 
                 }
                 return 1;

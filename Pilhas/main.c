@@ -3,11 +3,7 @@
 
 int main(){
     int i, tam = 0;
-    char comando[30];
-    char funcao[10];
-    char a[5];
-    char subfuncao[10];
-    char b[5];
+    char comando[30], funcao[10], a[5], subfuncao[10], b[5];
     int numa;
     int numb;
 
