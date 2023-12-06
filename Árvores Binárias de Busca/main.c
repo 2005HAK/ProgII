@@ -1,7 +1,4 @@
-#include "abb.h"
-#include "abb.c"
 #include "abb_privado.h"
-#include "abb_privado.c"
 
 int main(){
     abb_t *arv = abb_cria();
