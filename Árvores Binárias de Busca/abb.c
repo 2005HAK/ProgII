@@ -59,6 +59,12 @@ int abb_remove(abb_t *arv, elem_t chave){
             if (no == arv->raiz && no->dir == NULL && no->esq == NULL){
                 arv->raiz = NULL;
                 free(no);
+            } else if (no == arv->raiz && no->dir != NULL && no->esq == NULL){
+                arv->raiz = no->dir;
+                free(no);
+            } else if (no == arv->raiz && no->dir == NULL && no->esq != NULL){
+                arv->raiz = no->esq;
+                free(no);
             } else if (no->dir == NULL && no->esq == NULL){
                 if (no->chave > ant->chave) ant->dir = NULL;
                 else ant->esq = NULL;
