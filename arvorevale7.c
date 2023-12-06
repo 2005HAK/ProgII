@@ -1,5 +1,4 @@
 #include "abb_privado.h"
-#include "abb.h"
 
 /* Coloque abaixo as suas implementações */
 abb_t *abb_cria(){
@@ -48,10 +47,10 @@ int abb_insere(abb_t *arv, elem_t chave){
 
 int abb_remove(abb_t *arv, elem_t chave){
     if(arv != NULL){
-        if(abb_busca(arv, chave) == 1){
+        if(abb_busca(arv, chave) != 0){
             no_t *no = arv->raiz;
             if(no != NULL){
-                no_t *ant;
+                no_t *ant = NULL;
                 while (no->chave != chave){
                     ant = no;
                     if (chave > no->chave) no = no->dir;
@@ -72,45 +71,8 @@ int abb_remove(abb_t *arv, elem_t chave){
                     if (no->chave > ant->chave) ant->dir = no->esq;
                     else ant->esq = no->esq;
                     free(no);
-                } else if (no->dir != NULL && no->esq != NULL){
-                    for(int num = (no->chave - 1); num > ant->chave; num--){
-                        no_t *posAntecessor = no->esq;
-                        no_t *antesDoAntecessor;
-                        no_t *antecessor;
-                        while (posAntecessor != NULL){
-                            if (posAntecessor->chave == num){
-                                antecessor = posAntecessor;
-                                posAntecessor = NULL;
-                            } 
-                            if (num > posAntecessor->chave){
-                                antesDoAntecessor = posAntecessor;
-                                posAntecessor = posAntecessor->dir;
-                            } else {
-                                antesDoAntecessor = posAntecessor;
-                                posAntecessor = posAntecessor->esq;
-                            }
-                        }
-                        if(antesDoAntecessor != NULL){
-                            if (antecessor->esq != NULL){
-                                antesDoAntecessor->dir = antecessor->esq;
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            } else {
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            }
-                        } else {
-                            if (antecessor->esq != NULL){
-                                no->esq = antecessor->esq;
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            } else {
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            }
-                        }
-                    }
-                }return 1;
+                }
+                return 1;
             }
         } return 0;
     } return -1;
