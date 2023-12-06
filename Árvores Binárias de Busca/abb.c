@@ -37,11 +37,9 @@ int abb_insere(abb_t *arv, elem_t chave){
                     }
                     if (chave > ant->chave) ant->dir = novoNo;
                     else ant->esq = novoNo;
-                }
-                else arv->raiz = novoNo;
+                } else arv->raiz = novoNo;
                 return 1;
             }
-            
         } return 0;
     } return -1;
 }
@@ -82,7 +80,7 @@ int abb_remove(abb_t *arv, elem_t chave){
                 no_t *posAntecessor = no->esq;
                 no_t *antesDoAntecessor = NULL;
                 no_t *antecessor = NULL;
-                for(num = ((no->chave) - 1); num > -99999; num--){
+                for(num = ((no->chave) - 1); antecessor != NULL; num--){
                     while (posAntecessor != NULL){
                         if (posAntecessor->chave == num){
                             antecessor = posAntecessor;
