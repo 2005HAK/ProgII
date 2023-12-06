@@ -80,41 +80,30 @@ int abb_remove(abb_t *arv, elem_t chave){
                 no_t *posAntecessor = no->esq;
                 no_t *antesDoAntecessor = NULL;
                 no_t *antecessor = NULL;
-                for(num = ((no->chave) - 1); antecessor != NULL; num--){
-                    while (posAntecessor != NULL){
-                        if (posAntecessor->chave == num){
-                            antecessor = posAntecessor;
-                            break;
-                        } 
-                        if (num > posAntecessor->chave){
-                            antesDoAntecessor = posAntecessor;
-                            posAntecessor = antesDoAntecessor->dir;
+                while (posAntecessor != NULL){
+                    antesDoAntecessor = antecessor;
+                    antecessor = posAntecessor;
+                    posAntecessor = antecessor->dir;
+                }
+                if (antecessor != NULL){
+                    if (antesDoAntecessor != NULL){
+                        if (antecessor->esq != NULL){
+                            antesDoAntecessor->dir = antecessor->esq;
+                            no->chave = antecessor->chave;
+                            free(antecessor);
                         } else {
-                            antesDoAntecessor = posAntecessor;
-                            posAntecessor = antesDoAntecessor->esq;
+                            no->chave = antecessor->chave;
+                            free(antecessor);
                         }
-                    }
-                    if(antecessor != NULL){
-                        if (antesDoAntecessor != NULL){
-                            if (antecessor->esq != NULL){
-                                antesDoAntecessor->dir = antecessor->esq;
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            } else {
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            }
+                    } else{
+                        if (antecessor->esq != NULL){
+                            no->esq = antecessor->esq;
+                            no->chave = antecessor->chave;
+                            free(antecessor);
                         } else {
-                            if (antecessor->esq != NULL){
-                                no->esq = antecessor->esq;
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            } else {
-                                no->chave = antecessor->chave;
-                                free(antecessor);
-                            }
+                            no->chave = antecessor->chave;
+                            free(antecessor);
                         }
-                        break;
                     }
                 }
             }return 1;
